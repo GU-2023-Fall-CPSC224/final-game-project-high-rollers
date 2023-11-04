@@ -4,8 +4,10 @@ import java.util.Collections;
 public class Deck {
     public ArrayList<Card> cards = new ArrayList<>();
     ArrayList<String> suits = new ArrayList<>();
+    Integer availableCards;
     Integer totalCards;
     public Deck(){
+        availableCards = 52;
         totalCards = 52;
         suits.add(0,"diamond");
         suits.add(1,"heart");
@@ -40,6 +42,7 @@ public class Deck {
             if(availableCard(cards.get(index))){
                 cards.get(index).setPlayerHand(true);
                 cardGiven = true;
+                availableCards--;
             }else index++;
         }
         return cardGiven;
@@ -56,7 +59,18 @@ public class Deck {
             if(availableCard(cards.get(index))){
                 cards.get(index).setDealerHand(true);
                 cardGiven = true;
+                availableCards--;
             }else index++;
+        }
+    }
+    // takes cards used by dealer and player and puts them in the discard pile
+    public void discardUsedCards(){
+        for(Card card : cards){
+           if(card.getDealerHand() || card.getPlayerHand()){
+               card.setDiscard(true);
+               card.setPlayerHand(false);
+               card.setDealerHand(false);
+           }
         }
     }
     //sets ALL cards back to being unused
@@ -65,6 +79,7 @@ public class Deck {
             card.setPlayerHand(false);
             card.setDealerHand(false);
             card.setDiscard(false);
+            availableCards = totalCards;
         }
     }
     //checks to see if a card is used

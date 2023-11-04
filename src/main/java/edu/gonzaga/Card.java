@@ -34,7 +34,7 @@ public class Card {
         return discard;
     }
     public String getSuit(){
-        return  suit;
+        return suit;
     }
     public Integer getValue(){
         return value;
