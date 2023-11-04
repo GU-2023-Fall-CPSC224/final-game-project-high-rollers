@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Player {
     private Integer totalScore;
-
     private Integer BettingValue;
     private Hand playerHand;
     private String name;
