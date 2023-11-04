@@ -39,8 +39,4 @@ public class Card {
     public Integer getValue(){
         return value;
     }
-
-
-
-
 }

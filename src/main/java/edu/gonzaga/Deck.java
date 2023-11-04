@@ -1,7 +1,8 @@
 package edu.gonzaga;
 import java.util.ArrayList;
+import java.util.Collections;
 public class Deck {
-    ArrayList<Card> cards = new ArrayList<>();
+    public ArrayList<Card> cards = new ArrayList<>();
     ArrayList<String> suits = new ArrayList<>();
     Integer totalCards;
     public Deck(){
@@ -19,7 +20,7 @@ public class Deck {
             }
         }
         //for each suit add 4 values of 10
-        for (int k = 0; k <= 4; k++) {
+        for (int k = 0; k <= 3; k++) {
             for (String suit : suits) {
                 Card card = new Card(10, suit);
                 cards.add(card);
@@ -31,9 +32,73 @@ public class Deck {
             cards.add(card);
         }
     }
-    public void print(){
-        for (Card card : cards) {
-            System.out.print(card.getValue() + ": " + card.getSuit() + " ");
+    //gives player the first card in the deck that isnt used
+    public Boolean givePlayerCard(){
+        Boolean cardGiven = false;
+        int index = 0;
+        while(!cardGiven && index < totalCards){
+            if(availableCard(cards.get(index))){
+                cards.get(index).setPlayerHand(true);
+                cardGiven = true;
+            }else index++;
         }
+        return cardGiven;
+    }
+    //suffles the deck *MAKE SURE TO RESET DECK IF THE START OF A NEW ROUND*
+    public void shuffleDeck(){
+        Collections.shuffle(cards);
+    }
+    //gives the dealer the first card in the deck that isnt used
+    public void giveDealerCard(){
+        Boolean cardGiven = false;
+        int index = 0;
+        while(!cardGiven && index < totalCards){
+            if(availableCard(cards.get(index))){
+                cards.get(index).setDealerHand(true);
+                cardGiven = true;
+            }else index++;
+        }
+    }
+    //sets ALL cards back to being unused
+    public void resetDeck() {
+        for (Card card : cards) {
+            card.setPlayerHand(false);
+            card.setDealerHand(false);
+            card.setDiscard(false);
+        }
+    }
+    //checks to see if a card is used
+    public Boolean availableCard(Card card){
+        boolean cardAvailable = !card.getPlayerHand() && !card.getDealerHand() && !card.getDiscard();
+        return cardAvailable;
+    }
+
+// prints all cards
+    public void print(){
+        System.out.println("ALL CARDS");
+        for (Card card : cards) {
+            System.out.print(card.getValue() + " of " + card.getSuit() + " - ");
+        }
+        System.out.println();
+    }
+    // only prints the players cards
+    public void printPlayerCards(){
+        System.out.println("PLAYER CARDS");
+        for (Card card : cards) {
+            if(card.getPlayerHand()) {
+                System.out.print(card.getValue() + " of " + card.getSuit() + " - ");
+            }
+        }
+        System.out.println();
+    }
+    // only prints the dealers cards
+    public void printDealerCards(){
+        System.out.println("DEALER CARDS");
+        for (Card card : cards) {
+            if(card.getDealerHand()) {
+                System.out.print(card.getValue() + " of " + card.getSuit() + " - ");
+            }
+        }
+        System.out.println();
     }
 }
