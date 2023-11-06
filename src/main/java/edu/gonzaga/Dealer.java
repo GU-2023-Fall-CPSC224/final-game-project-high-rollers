@@ -5,10 +5,13 @@ import java.util.ArrayList;
 public class Dealer {
     private Integer totalScore;
     private Hand dealerHand;
-    ArrayList<Integer> dealerValues;
 
     public Dealer(){
-        dealerHand = new Hand();
+        this.dealerHand = new Hand();
+    }
+
+    public Hand getDealerHand(){
+        return dealerHand;
     }
 
     public void setInitialScore(){

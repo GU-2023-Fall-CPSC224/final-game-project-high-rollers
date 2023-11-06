@@ -7,7 +7,6 @@ public class Player {
     private Integer BettingValue;
     private Hand playerHand;
     private String name;
-    ArrayList<Integer> playerValues;
 
     public Player(String name){
         this.name = "DEFAULT_NAME";
