@@ -11,7 +11,7 @@ public class Hand {
        Integer score = 0;
        // I have included an int to keep track of the aces in a players hand so that we can either add 1 or 11 to their point total depending on the situation and their score.
        int aces = 0;
-       for(Card card : c){
+       for(Card card : z){
            if(card.getPlayerHand()) {
                score += card.getValue();
                if(card.getValue() == 11){
