@@ -1,9 +1,7 @@
 package edu.gonzaga;
 
-import java.util.ArrayList;
-
 public class Dealer {
-    private Integer totalScore;
+    private Integer totalCardScore;
     private Hand dealerHand;
 
     public Dealer(){
@@ -15,15 +13,15 @@ public class Dealer {
     }
 
     public void setInitialScore(){
-        totalScore = 0;
+        totalCardScore = 0;
     }
 
     public void setScore(Integer cardValue){
-        totalScore += cardValue;
+        totalCardScore += cardValue;
     }
 
-    public Integer getTotalScore() {
-        return totalScore;
+    public Integer getTotalCardScore() {
+        return totalCardScore;
     }
 
 }

@@ -34,8 +34,8 @@ public class Deck {
             cards.add(card);
         }
     }
-    //gives player the first card in the deck that isnt used
-    public Boolean givePlayerCard(){
+    //gives player the first card in the deck that isn't used
+    public Boolean givePlayerCard(ArrayList<Card> playerCards){
         Boolean cardGiven = false;
         int index = 0;
         while(!cardGiven && index < totalCards){
@@ -51,7 +51,7 @@ public class Deck {
     public void shuffleDeck(){
         Collections.shuffle(cards);
     }
-    //gives the dealer the first card in the deck that isnt used
+    //gives the dealer the first card in the deck that isn't used
     public void giveDealerCard(){
         Boolean cardGiven = false;
         int index = 0;
@@ -63,6 +63,11 @@ public class Deck {
             }else index++;
         }
     }
+
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
+
     // takes cards used by dealer and player and puts them in the discard pile
     public void discardUsedCards(){
         for(Card card : cards){

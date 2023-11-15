@@ -17,10 +17,9 @@ package edu.gonzaga;
 public class MainGame {
     public static void main(String[] args) {
         System.out.println("Hello Team Game");
-        Deck deck = new Deck();
-        deck.print();
+        Round round = new Round();
         //new BlackJackGUI();
-        //new StartingScreenGUI();
+       // new StartingScreenGUI();
         // Your code here. Good luck!
     }
 }
