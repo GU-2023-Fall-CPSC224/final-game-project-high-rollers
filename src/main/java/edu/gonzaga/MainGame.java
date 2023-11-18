@@ -18,6 +18,7 @@ public class MainGame {
     public static void main(String[] args) {
         System.out.println("Hello Team Game");
         Round round = new Round();
+        round.playRound();
         //new BlackJackGUI();
        // new StartingScreenGUI();
         // Your code here. Good luck!

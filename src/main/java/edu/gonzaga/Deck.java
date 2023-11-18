@@ -34,36 +34,50 @@ public class Deck {
             cards.add(card);
         }
     }
+    //for testing purposes to set the deck to what cards we want
+    public Deck(ArrayList<Card> importCards){
+        cards = importCards;
+    }
     //gives player the first card in the deck that isn't used
-    public Boolean givePlayerCard(ArrayList<Card> playerCards){
+    public Card givePlayerCard() {
         Boolean cardGiven = false;
         int index = 0;
-        while(!cardGiven && index < totalCards){
-            if(availableCard(cards.get(index))){
+        Card playerCard = null;
+        while (!cardGiven && index < totalCards) {
+            if (availableCard(cards.get(index))) {
                 cards.get(index).setPlayerHand(true);
+                //duplicated card being given to player to add to the player array
+                playerCard = new Card(cards.get(index).getValue(), cards.get(index).getSuit());
+                //displays card being given to entity
+                System.out.println(playerCard);
                 cardGiven = true;
                 availableCards--;
-            }else index++;
+            } else index++;
         }
-        return cardGiven;
+        return playerCard;
     }
     //suffles the deck *MAKE SURE TO RESET DECK IF THE START OF A NEW ROUND*
     public void shuffleDeck(){
         Collections.shuffle(cards);
     }
     //gives the dealer the first card in the deck that isn't used
-    public void giveDealerCard(){
+    public Card giveDealerCard() {
         Boolean cardGiven = false;
         int index = 0;
-        while(!cardGiven && index < totalCards){
-            if(availableCard(cards.get(index))){
+        Card dealerCard = null;
+        while (!cardGiven && index < totalCards) {
+            if (availableCard(cards.get(index))) {
                 cards.get(index).setDealerHand(true);
+                //duplicated card being given to player to add to the player array
+                dealerCard = new Card(cards.get(index).getValue(), cards.get(index).getSuit());
+                //displays card being given to entity
+                System.out.println(dealerCard);
                 cardGiven = true;
                 availableCards--;
-            }else index++;
+            } else index++;
         }
+        return dealerCard;
     }
-
     public ArrayList<Card> getCards() {
         return cards;
     }

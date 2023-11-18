@@ -39,4 +39,15 @@ public class Card {
     public Integer getValue(){
         return value;
     }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "dealerHand=" + dealerHand +
+                ", playerHand=" + playerHand +
+                ", discard=" + discard +
+                ", suit='" + suit + '\'' +
+                ", value=" + value +
+                '}';
+    }
 }
