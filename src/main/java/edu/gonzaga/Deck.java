@@ -49,7 +49,6 @@ public class Deck {
                 //duplicated card being given to player to add to the player array
                 playerCard = new Card(cards.get(index).getValue(), cards.get(index).getSuit());
                 //displays card being given to entity
-                System.out.println(playerCard);
                 cardGiven = true;
                 availableCards--;
             } else index++;
@@ -71,7 +70,6 @@ public class Deck {
                 //duplicated card being given to player to add to the player array
                 dealerCard = new Card(cards.get(index).getValue(), cards.get(index).getSuit());
                 //displays card being given to entity
-                System.out.println(dealerCard);
                 cardGiven = true;
                 availableCards--;
             } else index++;

@@ -121,8 +121,6 @@ public class BlackJackGUI extends JFrame {
                 panel.revalidate();
                 panel.repaint();
                 hitCount++;
-
-
             }
         });
     }
