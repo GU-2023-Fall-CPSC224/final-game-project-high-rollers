@@ -110,9 +110,11 @@ public class Round {
             //while it's less than we need a card so give dealer the card
             dealerHand.getPlayerCard(deck);
             System.out.println("Dealer Hit");
+
             //calculate the score with that new card
             dealerCardScore = dealerHand.calculateScore();
             //if the dealer busted then their turn is over
+            System.out.println("Dealer score: " + dealerCardScore);
             if (dealerCardScore > BLACKJACK) {
                 System.out.println("DEALER BUST");
                 break;
