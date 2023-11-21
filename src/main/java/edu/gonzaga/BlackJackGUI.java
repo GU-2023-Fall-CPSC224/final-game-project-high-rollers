@@ -10,12 +10,9 @@ import java.util.Random;
 public class BlackJackGUI extends JFrame {
 
     JFrame frame = new JFrame("Black Jack");
-
     JPanel panel = new JPanel();
-
     JButton hitButton  = new JButton("hit");
     JButton standButton = new JButton("stand");
-
     JLabel playerCard1 = new JLabel();
     JLabel playerCard2 = new JLabel();
     JLabel dealerCard1 = new JLabel();
@@ -92,6 +89,7 @@ public class BlackJackGUI extends JFrame {
         standButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("STANDING");
             }
         });
 

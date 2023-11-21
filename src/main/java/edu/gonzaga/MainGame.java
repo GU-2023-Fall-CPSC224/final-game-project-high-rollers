@@ -22,8 +22,6 @@ public class MainGame {
         //new StartingScreenGUI();
         // Your code here. Good luck!
     }
-
-
     public static void playGame(){
         int playerWins = 0;
         int dealerWins = 0;
@@ -45,7 +43,6 @@ public class MainGame {
                 System.out.println("DEALER WIN");
             }
         }
-
         System.out.println("PLAYER WINS: " + playerWins);
         System.out.println("DEALER WINS: " + dealerWins);
     }
