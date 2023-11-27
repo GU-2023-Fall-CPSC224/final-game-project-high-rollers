@@ -6,13 +6,14 @@ public class Deck {
     ArrayList<String> suits = new ArrayList<>();
     Integer availableCards;
     Integer totalCards;
-    public Deck(){
+
+    public Deck() {
         availableCards = 52;
         totalCards = 52;
-        suits.add(0,"diamond");
-        suits.add(1,"heart");
-        suits.add(2,"spade");
-        suits.add(3,"club");
+        suits.add(0, "diamond");
+        suits.add(1, "heart");
+        suits.add(2, "spade");
+        suits.add(3, "club");
 
         //for values 2-9 of each suit
         for (int value = 2; value <= 9; value++) {
@@ -34,86 +35,55 @@ public class Deck {
             cards.add(card);
         }
     }
-    //gives player the first card in the deck that isnt used
-    public Boolean givePlayerCard(){
-        Boolean cardGiven = false;
-        int index = 0;
-        while(!cardGiven && index < totalCards){
-            if(availableCard(cards.get(index))){
-                cards.get(index).setPlayerHand(true);
-                cardGiven = true;
-                availableCards--;
-            }else index++;
-        }
-        return cardGiven;
-    }
-    //suffles the deck *MAKE SURE TO RESET DECK IF THE START OF A NEW ROUND*
-    public void shuffleDeck(){
-        Collections.shuffle(cards);
-    }
-    //gives the dealer the first card in the deck that isnt used
-    public void giveDealerCard(){
-        Boolean cardGiven = false;
-        int index = 0;
-        while(!cardGiven && index < totalCards){
-            if(availableCard(cards.get(index))){
-                cards.get(index).setDealerHand(true);
-                cardGiven = true;
-                availableCards--;
-            }else index++;
-        }
-    }
-    // takes cards used by dealer and player and puts them in the discard pile
-    public void discardUsedCards(){
-        for(Card card : cards){
-           if(card.getDealerHand() || card.getPlayerHand()){
-               card.setDiscard(true);
-               card.setPlayerHand(false);
-               card.setDealerHand(false);
-           }
-        }
-    }
-    //sets ALL cards back to being unused
-    public void resetDeck() {
-        for (Card card : cards) {
-            card.setPlayerHand(false);
-            card.setDealerHand(false);
-            card.setDiscard(false);
-            availableCards = totalCards;
-        }
-    }
-    //checks to see if a card is used
-    public Boolean availableCard(Card card){
-        boolean cardAvailable = !card.getPlayerHand() && !card.getDealerHand() && !card.getDiscard();
-        return cardAvailable;
+
+    //for testing purposes to set the deck to what cards we want
+    public Deck(ArrayList<Card> importCards) {
+        cards = importCards;
     }
 
-// prints all cards
-    public void print(){
-        System.out.println("ALL CARDS");
-        for (Card card : cards) {
-            System.out.print(card.getValue() + " of " + card.getSuit() + " - ");
+    //gives player the first card in the deck that isn't used
+    public Card givePlayerCard() {
+        Boolean cardGiven = false;
+        int index = 0;
+        Card playerCard = null;
+        while (!cardGiven && index < totalCards) {
+            if (availableCard(cards.get(index))) {
+                cards.get(index).setPlayerHand(true);
+                //duplicated card being given to player to add to the player array
+                playerCard = new Card(cards.get(index).getValue(), cards.get(index).getSuit());
+                //displays card being given to entity
+                cardGiven = true;
+                availableCards--;
+            } else index++;
         }
-        System.out.println();
+        return playerCard;
     }
-    // only prints the players cards
-    public void printPlayerCards(){
-        System.out.println("PLAYER CARDS");
-        for (Card card : cards) {
-            if(card.getPlayerHand()) {
-                System.out.print(card.getValue() + " of " + card.getSuit() + " - ");
-            }
-        }
-        System.out.println();
+
+    //suffles the deck *MAKE SURE TO RESET DECK IF THE START OF A NEW ROUND*
+    public void shuffleDeck() {
+        Collections.shuffle(cards);
     }
-    // only prints the dealers cards
-    public void printDealerCards(){
-        System.out.println("DEALER CARDS");
-        for (Card card : cards) {
-            if(card.getDealerHand()) {
-                System.out.print(card.getValue() + " of " + card.getSuit() + " - ");
-            }
+
+    //gives the dealer the first card in the deck that isn't used
+    public Card giveDealerCard() {
+        Boolean cardGiven = false;
+        int index = 0;
+        Card dealerCard = null;
+        while (!cardGiven && index < totalCards) {
+            if (availableCard(cards.get(index))) {
+                cards.get(index).setDealerHand(true);
+                //duplicated card being given to player to add to the player array
+                dealerCard = new Card(cards.get(index).getValue(), cards.get(index).getSuit());
+                //displays card being given to entity
+                cardGiven = true;
+                availableCards--;
+            } else index++;
         }
-        System.out.println();
+        return dealerCard;
+    }
+
+    //checks to see if a card is used
+    public Boolean availableCard(Card card) {
+        return !card.getPlayerHand() && !card.getDealerHand() && !card.getDiscard();
     }
 }

@@ -81,15 +81,11 @@ public class StartingScreenGUI extends JFrame{
         groupNameText.setBounds(200,28, 500,100);
         startingCard.setBounds(300,150, 150,150);
 
-
-
-
         frame.add(panel);
         frame.setSize(700,550);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit out of application
         panel.setBackground(new Color(35,54,5));
-
 
         startButton.addActionListener(new ActionListener() {
             @Override
@@ -114,6 +110,5 @@ public class StartingScreenGUI extends JFrame{
         groupNameText.setForeground(new Color(227, 217, 217));
         startingText.setForeground(new Color(227, 217, 217));
     }
-
 
 }
