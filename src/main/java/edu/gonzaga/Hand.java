@@ -33,8 +33,10 @@ public class Hand {
         return isBlackJack;
     }
 
-    public void getPlayerCard(Deck deck){
-        entityCards.add(deck.givePlayerCard());
+    public String getPlayerCard(Deck deck){
+        Card card = deck.givePlayerCard();
+        entityCards.add(card);
+        return card.getCardImage();
     }
 
     public void getDealerCard(Deck deck){

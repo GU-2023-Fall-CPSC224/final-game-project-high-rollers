@@ -11,7 +11,7 @@ public class BlackJack {
     Dealer dealer;
     Round round;
     Deck deck;
-
+    int hitCount = 0;
 
     JFrame startingScreenFrame;
     JPanel startingScreenPanel;
@@ -42,12 +42,9 @@ public class BlackJack {
         BlackJack app = new BlackJack();
         app.runGUI();
 
-        /*
-        int playerWins = 0;
-        int dealerWins = 0;
-        //BIG REMINDER if winStatus is 0 == dealer won, 1 == tie, 2 == player won
-        int winStatus;
 
+
+        /*
         for(int i = 0; i < 10; i++){
             Round round = new Round(new Deck());
             winStatus = round.playRound();
@@ -100,6 +97,8 @@ public class BlackJack {
         this.blackJackScreenPanel = genBlackJackGUI();
 
         blackJackScreenFrame.setVisible(true);
+
+        round.playRound();
     }
 
     private JPanel genStartingScreenPanel(){
@@ -137,8 +136,7 @@ public class BlackJack {
         newPanel.setLayout(null);
         newPanel.setBackground(new Color(35,54,5));
 
-        //ImageIcon card1 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getRandomCard()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
-        //ImageIcon card2 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getRandomCard()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
+        //ImageIcon card1 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" +  round.playerCardScore.)getScaledInstance(100,100,Image.SCALE_DEFAULT));
         //ImageIcon card3 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getRandomCard()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
         //ImageIcon card4 = new ImageIcon(new ImageIcon("PNG-cards-1.3/9_of_clubs.png").getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
         ImageIcon turnedOverCard = new ImageIcon(new ImageIcon("PNG-cards-1.3/card back red.png").getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
@@ -149,7 +147,7 @@ public class BlackJack {
         playerCard1.setFont(new Font("MV Boli", Font.ITALIC, 17)); // set font of text
         playerCard1.setIconTextGap(10); // set gap of text to image either plus or minus
 
-        //playerCard1.setIcon(card1);
+        playerCard1.setIcon(card1);
         //playerCard2.setIcon(card2);
 
         dealerCard1.setHorizontalTextPosition(JLabel.CENTER); // set text according to JLabel ( Left, center, or right)
@@ -223,32 +221,28 @@ public class BlackJack {
         hitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*
-                int hitCount = 0;
                 int distance = (120 + 110 * hitCount);
 
-                //ImageIcon card = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getRandomCard()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
-
-                round.playerHand.getPlayerCard();
+                String playerCardImage = round.playerTurn();
                 JLabel newPlayerCard  = new JLabel();
+                ImageIcon card = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + playerCardImage).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
                 newPlayerCard.setIcon(card);
                 newPlayerCard.setBounds(distance, 280, 100, 100);
-                panel.add(newPlayerCard);
+                blackJackScreenPanel.add(newPlayerCard);
+                blackJackScreenPanel.revalidate();
+                blackJackScreenPanel.repaint();
 
-                ImageIcon card2 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getRandomCard()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
-                JLabel newDealerCard  = new JLabel();
-                newDealerCard.setIcon(card2);
-                distance = (120 + 110 * (hitCount));
-                newDealerCard.setBounds(distance, 130, 100, 100);
-                panel.add(newDealerCard);
-                panel.revalidate();
-                panel.repaint();
                 hitCount++;
-
-                 */
             }
         });
 
+        standButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Player Stand");
+                round.dealerTurn();
+            }
+        });
     }
 
 

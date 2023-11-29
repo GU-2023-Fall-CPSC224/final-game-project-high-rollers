@@ -76,45 +76,29 @@ public class Round {
         System.out.println("Dealer score: " + dealerStartScore + " + ?");
     }
 // player algorithm
-    public void playerTurn() {
-        //while the player hasn't busted
-        /*
-        while (playerCardScore < BLACKJACK) {
-            //console stuff
+    public String playerTurn() {
 
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Enter H to hit or S to stand: ");
-            char userInput = scanner.next().charAt(0);
-            // if player wants to hit
-            if (Character.toLowerCase(userInput) == 'h') {
-                System.out.println("Player Hit");
-                //give the player a new card
-                playerHand.getPlayerCard(deck);
-                //calculate their new score
-                playerCardScore = playerHand.calculateScore();
-                //if that hit caused them to bust
-                if (playerCardScore > BLACKJACK) {
-                    System.out.println("PLAYER BUST");
-                    break;
-                }
-                System.out.println("Player score: " + playerCardScore);
-                //if the player wants to stand
-            } else if (Character.toLowerCase(userInput) == 's' || playerCardScore > BLACKJACK) {
-                System.out.println("Player Stand");
-                //break ends the loop or their turn
-                break;
-            }
+        if(!(playerCardScore < BLACKJACK)){
+            return "";
         }
-         */
 
+        String cardNum = playerHand.getPlayerCard(deck);
+        //calculate their new score
+        playerCardScore = playerHand.calculateScore();
+        //if that hit caused them to bust
+        if (playerCardScore > BLACKJACK) {
+            System.out.println("PLAYER BUST");
+        }
+        System.out.println("Player score: " + playerCardScore);
         displayScores();
+        return cardNum;
     }
     //dealer algorithm
     public void dealerTurn() {
         //while the dealer card score is less than the player cards score
         while (dealerCardScore < playerCardScore) {
             //while it's less than we need a card so give dealer the card
-            dealerHand.getPlayerCard(deck);
+            dealerHand.getDealerCard(deck);
             System.out.println("Dealer Hit");
 
             //calculate the score with that new card

@@ -15,6 +15,7 @@ public class Card {
         value = valueSet;
     }
 
+
     public void setDealerHand(Boolean set){
         dealerHand = set;
     }
@@ -49,5 +50,12 @@ public class Card {
                 ", suit='" + suit + '\'' +
                 ", value=" + value +
                 '}';
+    }
+    public String getCardImage() {
+        if(value <= 10){
+            System.out.println(value + "_of_" + suit + "s.png");
+            return value + "_of_" + suit + "s.png";
+        }
+        return "";
     }
 }
