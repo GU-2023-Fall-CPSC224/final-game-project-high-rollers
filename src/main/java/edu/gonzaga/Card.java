@@ -52,9 +52,25 @@ public class Card {
                 '}';
     }
     public String getCardImage() {
-        if(value <= 10){
+        if(value == 1){
+            System.out.println("ace_of_" + suit + "s.png");
+            return value + "_of_" + suit + "s.png";
+        }
+        else if(value <= 10){
             System.out.println(value + "_of_" + suit + "s.png");
             return value + "_of_" + suit + "s.png";
+        }
+        else if(value == 11){
+            System.out.println("jack_of_" + suit + "s.png");
+            return "jack_of_" + suit + "s.png";
+        }
+        else if(value == 12){
+            System.out.println("queen_of_" + suit + "s.png");
+            return "queen_of_" + suit + "s.png";
+        }
+        else if(value == 13){
+            System.out.println("king_of_" + suit + "s.png");
+            return "king_of_" + suit + "s.png";
         }
         return "";
     }

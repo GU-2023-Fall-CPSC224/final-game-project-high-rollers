@@ -11,7 +11,9 @@ public class BlackJack {
     Dealer dealer;
     Round round;
     Deck deck;
-    int hitCount = 0;
+    int hitCount = 1;
+    String playerCardNum1;
+    String playerCardNum2;
 
     JFrame startingScreenFrame;
     JPanel startingScreenPanel;
@@ -35,14 +37,9 @@ public class BlackJack {
     JLabel startingText = new JLabel("Welcome to Java Blackjack");
     JLabel groupNameText = new JLabel("Designed by: Harrison, Cooper, Asher");
 
-
-
-
     public static void main(String [] args){
         BlackJack app = new BlackJack();
         app.runGUI();
-
-
 
         /*
         for(int i = 0; i < 10; i++){
@@ -62,8 +59,6 @@ public class BlackJack {
         }
         System.out.println("PLAYER WINS: " + playerWins);
         System.out.println("DEALER WINS: " + dealerWins);
-
-
          */
 
     }
@@ -71,6 +66,8 @@ public class BlackJack {
     public BlackJack(){
         deck = new Deck();
         round = new Round(this.deck);
+        playerCardNum1 = round.getCard();
+        playerCardNum2 = round.getCard();
     }
 
     void runGUI(){
@@ -136,8 +133,8 @@ public class BlackJack {
         newPanel.setLayout(null);
         newPanel.setBackground(new Color(35,54,5));
 
-        //ImageIcon card1 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" +  round.playerCardScore.)getScaledInstance(100,100,Image.SCALE_DEFAULT));
-        //ImageIcon card3 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getRandomCard()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
+        ImageIcon card1 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" +  playerCardNum1).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
+        ImageIcon card2 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + playerCardNum2).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
         //ImageIcon card4 = new ImageIcon(new ImageIcon("PNG-cards-1.3/9_of_clubs.png").getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
         ImageIcon turnedOverCard = new ImageIcon(new ImageIcon("PNG-cards-1.3/card back red.png").getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
 
@@ -148,7 +145,7 @@ public class BlackJack {
         playerCard1.setIconTextGap(10); // set gap of text to image either plus or minus
 
         playerCard1.setIcon(card1);
-        //playerCard2.setIcon(card2);
+        playerCard2.setIcon(card2);
 
         dealerCard1.setHorizontalTextPosition(JLabel.CENTER); // set text according to JLabel ( Left, center, or right)
         dealerCard1.setVerticalTextPosition(JLabel.BOTTOM);

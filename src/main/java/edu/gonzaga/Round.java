@@ -21,17 +21,23 @@ public class Round {
         //shuffle the deck
         deck.shuffleDeck();
         //deal as normal order give player top card then dealer top card
-        playerHand.getPlayerCard(deck);
+        //playerHand.getPlayerCard(deck);
         dealerHand.getDealerCard(deck);
         //using start score bc player can only see the first card dealer draws
         dealerStartScore = dealerHand.calculateScore();
         //then give each player another card
-        playerHand.getPlayerCard(deck);
+        //playerHand.getPlayerCard(deck);
         dealerHand.getDealerCard(deck);
         //calculate full scores of each hand
         playerCardScore = playerHand.calculateScore();
         dealerCardScore = dealerHand.calculateScore();
+
     }
+    public String getCard(){
+        return playerHand.getPlayerCard(deck);
+    }
+
+
 
 
     public int playRound() {
@@ -53,7 +59,7 @@ public class Round {
         }
         //if the dealer didn't bust and they ended up with a score close to 21 then the player
         if ((dealerCardScore <= BLACKJACK && dealerCardScore > playerCardScore) || playerCardScore > 21) {
-            //remeber win status 0 is dealer win
+            //remember win status 0 is dealer win
             winStatus = 0;
         } else if (dealerCardScore == playerCardScore) {
             //if they tied win status is 1
