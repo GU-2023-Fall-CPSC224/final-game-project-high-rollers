@@ -3,7 +3,7 @@ package edu.gonzaga;
 import java.util.Scanner;
 
 public class Round {
-    Deck deck = new Deck();
+    Deck deck;
     Hand playerHand = new Hand();
     Hand dealerHand = new Hand();
     int playerCardScore = 0;
@@ -15,7 +15,8 @@ public class Round {
 
 
     //create round
-    public Round() {
+    public Round(Deck deck) {
+        this.deck = deck;
         System.out.println("------------ NEW ROUND ----------");
         //shuffle the deck
         deck.shuffleDeck();
@@ -77,8 +78,10 @@ public class Round {
 // player algorithm
     public void playerTurn() {
         //while the player hasn't busted
+        /*
         while (playerCardScore < BLACKJACK) {
             //console stuff
+
             Scanner scanner = new Scanner(System.in);
             System.out.print("Enter H to hit or S to stand: ");
             char userInput = scanner.next().charAt(0);
@@ -102,6 +105,8 @@ public class Round {
                 break;
             }
         }
+         */
+
         displayScores();
     }
     //dealer algorithm
