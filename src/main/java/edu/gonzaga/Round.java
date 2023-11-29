@@ -22,7 +22,7 @@ public class Round {
         deck.shuffleDeck();
         //deal as normal order give player top card then dealer top card
         //playerHand.getPlayerCard(deck);
-        dealerHand.getDealerCard(deck);
+        //dealerHand.getDealerCard(deck);
         //using start score bc player can only see the first card dealer draws
         dealerStartScore = dealerHand.calculateScore();
         //then give each player another card
@@ -35,6 +35,9 @@ public class Round {
     }
     public String getCard(){
         return playerHand.getPlayerCard(deck);
+    }
+    public String getDealerCard(){
+        return dealerHand.getDealerCard(deck);
     }
 
 

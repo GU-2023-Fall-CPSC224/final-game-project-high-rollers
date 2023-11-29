@@ -14,6 +14,7 @@ public class BlackJack {
     int hitCount = 1;
     String playerCardNum1;
     String playerCardNum2;
+    String dealerCardNum1;
 
     JFrame startingScreenFrame;
     JPanel startingScreenPanel;
@@ -68,6 +69,7 @@ public class BlackJack {
         round = new Round(this.deck);
         playerCardNum1 = round.getCard();
         playerCardNum2 = round.getCard();
+        dealerCardNum1 =  round.getDealerCard();
     }
 
     void runGUI(){
@@ -135,7 +137,7 @@ public class BlackJack {
 
         ImageIcon card1 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" +  playerCardNum1).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
         ImageIcon card2 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + playerCardNum2).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
-        //ImageIcon card4 = new ImageIcon(new ImageIcon("PNG-cards-1.3/9_of_clubs.png").getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
+        ImageIcon card3 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + dealerCardNum1).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
         ImageIcon turnedOverCard = new ImageIcon(new ImageIcon("PNG-cards-1.3/card back red.png").getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
 
 
@@ -152,7 +154,7 @@ public class BlackJack {
         dealerCard1.setFont(new Font("MV Boli", Font.ITALIC, 17)); // set font of text
         dealerCard1.setIconTextGap(10); // set gap of text to image either plus or minus
 
-       // dealerCard1.setIcon(card3);
+        dealerCard1.setIcon(card3);
         dealerCard2.setIcon(turnedOverCard);
 
         dealerCard1.setBounds(5, 130, 100, 100);

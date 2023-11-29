@@ -39,8 +39,10 @@ public class Hand {
         return card.getCardImage();
     }
 
-    public void getDealerCard(Deck deck){
-        entityCards.add(deck.giveDealerCard());
+    public String getDealerCard(Deck deck){
+        Card card = deck.giveDealerCard();
+        entityCards.add(card);
+        return card.getCardImage();
     }
 
 
