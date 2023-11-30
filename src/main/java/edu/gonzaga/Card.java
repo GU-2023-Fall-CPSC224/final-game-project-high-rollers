@@ -6,13 +6,20 @@ public class Card {
     private Boolean discard;
     private String suit;
     private Integer value;
+    private String cardName;
 
-    public Card(Integer valueSet, String suitSet){
+
+    public Card(Integer valueSet, String suitSet, String cardNameSet){
         dealerHand = false;
         playerHand = false;
         discard = false;
         suit = suitSet;
         value = valueSet;
+        cardName = cardNameSet;
+    }
+
+    public String getCardName(){
+        return cardName;
     }
 
 
