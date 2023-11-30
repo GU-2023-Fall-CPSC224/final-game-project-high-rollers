@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
 
-public class BlackJack {
+public class BlackJack{
 
     Player player;
     Dealer dealer;
@@ -14,6 +14,7 @@ public class BlackJack {
     Deck deck;
     JTextArea textArea;
     ImageIcon turnedOverCard;
+    Image bgImage ;
 
     int hitCount = 1;
     Card playerCardNum1;
@@ -195,19 +196,11 @@ public class BlackJack {
         newPanel.add(hitButton);
         newPanel.add(standButton);
 
-        // Create a JTextArea
-        textArea = new JTextArea();
-        textArea.setLineWrap(true); // Enable text wrapping
-        textArea.setWrapStyleWord(true); // Wrap at word boundaries
-        textArea.setEditable(false);
+//        ImageIcon icon = new ImageIcon("PNG-cards-1.3/table.jpeg");
+//        Image backGroundImage = icon.getImage();
+//        bgImage = backGroundImage;
+//        paintComponent(backGroundImage);
 
-
-        // Create a JScrollPane and add the JTextArea to it
-//        JScrollPane scrollPane = new JScrollPane(textArea);
-//        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-//
-//        scrollPane.setBounds(500,0, 200,300);
-//        blackJackScreenFrame.add(scrollPane);
 
         blackJackScreenFrame.add(newPanel);
         blackJackScreenFrame.setSize(700,550);
