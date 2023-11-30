@@ -25,6 +25,7 @@ public class MainGame {
     public static void playGame(){
         int playerWins = 0;
         int dealerWins = 0;
+
         //BIG REMINDER if winStatus is 0 == dealer won, 1 == tie, 2 == player won
         int winStatus;
 
