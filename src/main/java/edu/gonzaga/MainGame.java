@@ -19,7 +19,7 @@ public class MainGame {
         System.out.println("Hello Team Game");
         playGame();
         //new BlackJackGUI();
-        //new StartingScreenGUI();
+       // new StartingScreenGUI();
         // Your code here. Good luck!
     }
     public static void playGame(){
@@ -36,7 +36,7 @@ public class MainGame {
                 System.out.println("PLAYER WIN");
             }
             else if (winStatus == 1){
-                System.out.println("TIE");
+                System.out.println("PUSH");
             }
             else{
                 dealerWins++;

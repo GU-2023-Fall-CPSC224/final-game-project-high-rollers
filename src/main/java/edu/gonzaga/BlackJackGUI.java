@@ -21,6 +21,8 @@ public class BlackJackGUI extends JFrame {
     JLabel playerText = new JLabel("Player Cards");
     JLabel dealerText = new JLabel("Dealer Cards");
 
+    Round round = new Round();
+
     int hitCount = 1;
 
     String[] cardFileNames = {
@@ -34,9 +36,9 @@ public class BlackJackGUI extends JFrame {
         panel.setLayout(null);
         panel.setBackground(new Color(35,54,5));
 
-        ImageIcon card1 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getRandomCard()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
-        ImageIcon card2 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getRandomCard()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
-        ImageIcon card3 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getRandomCard()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
+        ImageIcon card1 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getPlayerCards()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
+        //ImageIcon card2 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getRandomCard()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
+       // ImageIcon card3 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getRandomCard()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
         //ImageIcon card4 = new ImageIcon(new ImageIcon("PNG-cards-1.3/9_of_clubs.png").getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
         ImageIcon turnedOverCard = new ImageIcon(new ImageIcon("PNG-cards-1.3/card back red.png").getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
 
@@ -47,14 +49,14 @@ public class BlackJackGUI extends JFrame {
         playerCard1.setIconTextGap(10); // set gap of text to image either plus or minus
 
         playerCard1.setIcon(card1);
-        playerCard2.setIcon(card2);
+       // playerCard2.setIcon(card2);
 
         dealerCard1.setHorizontalTextPosition(JLabel.CENTER); // set text according to JLabel ( Left, center, or right)
         dealerCard1.setVerticalTextPosition(JLabel.BOTTOM);
         dealerCard1.setFont(new Font("MV Boli", Font.ITALIC, 17)); // set font of text
         dealerCard1.setIconTextGap(10); // set gap of text to image either plus or minus
 
-        dealerCard1.setIcon(card3);
+       // dealerCard1.setIcon(card3);
         dealerCard2.setIcon(turnedOverCard);
 
         dealerCard1.setBounds(5, 130, 100, 100);
@@ -104,15 +106,15 @@ public class BlackJackGUI extends JFrame {
                 int distance = (120 + 110 * hitCount);
 
 
-                ImageIcon card = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getRandomCard()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
+                //ImageIcon card = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getRandomCard()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
                 JLabel newPlayerCard  = new JLabel();
-                newPlayerCard.setIcon(card);
+               // newPlayerCard.setIcon(card);
                 newPlayerCard.setBounds(distance, 280, 100, 100);
                 panel.add(newPlayerCard);
 
-                ImageIcon card2 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getRandomCard()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
+                // ImageIcon card2 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + getRandomCard()).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
                 JLabel newDealerCard  = new JLabel();
-                newDealerCard.setIcon(card2);
+               // newDealerCard.setIcon(card2);
                 distance = (120 + 110 * (hitCount));
                 newDealerCard.setBounds(distance, 130, 100, 100);
                 panel.add(newDealerCard);
@@ -123,9 +125,12 @@ public class BlackJackGUI extends JFrame {
         });
     }
 
-    public String getRandomCard(){
-        Random rand = new Random();
-        int randomIndex = rand.nextInt(cardFileNames.length);
-        return cardFileNames[randomIndex];
+    public String getPlayerCards(){
+        Card displayCard = round.playerHand.entityCards.get(1);
+        Integer value = displayCard.getValue();
+        String suit = displayCard.getSuit();
+        System.out.println(value);
+        System.out.println(suit);
+        return (value.toString() + "_of_" + suit + ".png");
     }
 }

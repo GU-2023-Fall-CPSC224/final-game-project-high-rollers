@@ -12,6 +12,7 @@ public class Round {
     // 0 win status is dealer win, 1 win status is tie, 2 win status in player win.
     int winStatus;
     public static final int BLACKJACK = 21;
+    public static final int DEALER_CUT_OFF = 17;
 
     //create round
     public Round() {
@@ -19,13 +20,13 @@ public class Round {
         //shuffle the deck
         deck.shuffleDeck();
         //deal as normal order give player top card then dealer top card
-        playerHand.getPlayerCard(deck);
-        dealerHand.getDealerCard(deck);
+        playerHand.givePlayerCard(deck);
+        dealerHand.giveDealerCard(deck);
         //using start score bc player can only see the first card dealer draws
         dealerStartScore = dealerHand.calculateScore();
         //then give each player another card
-        playerHand.getPlayerCard(deck);
-        dealerHand.getDealerCard(deck);
+        playerHand.givePlayerCard(deck);
+        dealerHand.giveDealerCard(deck);
         //calculate full scores of each hand
         playerCardScore = playerHand.calculateScore();
         dealerCardScore = dealerHand.calculateScore();
@@ -85,7 +86,7 @@ public class Round {
             if (Character.toLowerCase(userInput) == 'h') {
                 System.out.println("Player Hit");
                 //give the player a new card
-                playerHand.getPlayerCard(deck);
+                playerHand.givePlayerCard(deck);
                 //calculate their new score
                 playerCardScore = playerHand.calculateScore();
                 //if that hit caused them to bust
@@ -106,9 +107,10 @@ public class Round {
     //dealer algorithm
     public void dealerTurn() {
         //while the dealer card score is less than the player cards score
-        while (dealerCardScore < playerCardScore) {
+        //dealer cut off is because the dealer has to hit if their score is below 17
+        while (dealerCardScore < playerCardScore&& dealerCardScore <= DEALER_CUT_OFF) {
             //while it's less than we need a card so give dealer the card
-            dealerHand.getPlayerCard(deck);
+            dealerHand.givePlayerCard(deck);
             System.out.println("Dealer Hit");
 
             //calculate the score with that new card

@@ -10,10 +10,10 @@ public class Deck {
     public Deck() {
         availableCards = 52;
         totalCards = 52;
-        suits.add(0, "diamond");
-        suits.add(1, "heart");
-        suits.add(2, "spade");
-        suits.add(3, "club");
+        suits.add(0, "diamonds");
+        suits.add(1, "hearts");
+        suits.add(2, "spades");
+        suits.add(3, "clubs");
 
         //for values 2-9 of each suit
         for (int value = 2; value <= 9; value++) {
