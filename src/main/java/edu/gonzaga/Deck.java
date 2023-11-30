@@ -25,7 +25,7 @@ public class Deck {
         //for values 2-9 of each suit
         for (Integer value = 2; value <= 10; value++) {
             for (String suit : suits) {
-                fileName = value + "_of_" + suit + ".png";
+                fileName = "PNG-cards-1.3/" + value + "_of_" + suit + ".png";
                 Card card = new Card(value, suit, fileName);
                 cards.add(card);
             }
@@ -33,7 +33,7 @@ public class Deck {
         //for each suit add 4 values of 10
         for (int k = 0; k <= 2; k++) {
             for (String suit : suits) {
-                fileName = faceCards.get(k) + "_of_" + suit + ".png";
+                fileName = "PNG-cards-1.3/" + faceCards.get(k) + "_of_" + suit + ".png";
                 System.out.println(fileName);
                 Card card = new Card(10, suit, fileName);
                 cards.add(card);
@@ -41,7 +41,7 @@ public class Deck {
         }
         //for each suit add a value 11
         for (String suit : suits) {
-            fileName = "ace_of_" + suit + ".png";
+            fileName = "PNG-cards-1.3/" + "ace_of_" + suit + ".png";
             Card card = new Card(11, suit, fileName);
             cards.add(card);
         }

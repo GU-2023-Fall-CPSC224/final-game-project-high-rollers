@@ -27,16 +27,16 @@ public class Round {
         dealerStartScore = dealerHand.calculateScore();
         //then give each player another card
         //playerHand.getPlayerCard(deck);
-        dealerHand.getDealerCard(deck);
+        //dealerHand.getDealerCard(deck);
         //calculate full scores of each hand
         playerCardScore = playerHand.calculateScore();
         dealerCardScore = dealerHand.calculateScore();
 
     }
-    public String getCard(){
+    public Card getCard(){
         return playerHand.getPlayerCard(deck);
     }
-    public String getDealerCard(){
+    public Card getDealerCard(){
         return dealerHand.getDealerCard(deck);
     }
 
@@ -55,23 +55,23 @@ public class Round {
         //must display start scores bc player shouldnt see dealer full score
         displayStartScores();
         //start the players turn as they go first
-        playerTurn();
+        //playerTurn();
         //if the player busted theres no reason for the dealer to go
-        if (playerCardScore < 21) {
-            dealerTurn();
-        }
-        //if the dealer didn't bust and they ended up with a score close to 21 then the player
-        if ((dealerCardScore <= BLACKJACK && dealerCardScore > playerCardScore) || playerCardScore > 21) {
-            //remember win status 0 is dealer win
-            winStatus = 0;
-        } else if (dealerCardScore == playerCardScore) {
-            //if they tied win status is 1
-            winStatus = 1;
-        } else {
-            // if neither of these things then player one and win status is 2
-            winStatus = 2;
-        }
-        //return win status for main game to process
+//        if (playerCardScore < 21) {
+//            dealerTurn();
+//        }
+//        //if the dealer didn't bust and they ended up with a score close to 21 then the player
+//        if ((dealerCardScore <= BLACKJACK && dealerCardScore > playerCardScore) || playerCardScore > 21) {
+//            //remember win status 0 is dealer win
+//            winStatus = 0;
+//        } else if (dealerCardScore == playerCardScore) {
+//            //if they tied win status is 1
+//            winStatus = 1;
+//        } else {
+//            // if neither of these things then player one and win status is 2
+//            winStatus = 2;
+//        }
+//        //return win status for main game to process
         return winStatus;
     }
 //displays the full scores
@@ -85,13 +85,13 @@ public class Round {
         System.out.println("Dealer score: " + dealerStartScore + " + ?");
     }
 // player algorithm
-    public String playerTurn() {
+    public Card playerTurn() {
 
         if(!(playerCardScore < BLACKJACK)){
-            return "";
+            return null;
         }
 
-        String cardNum = playerHand.getPlayerCard(deck);
+        Card card = playerHand.getPlayerCard(deck);
         //calculate their new score
         playerCardScore = playerHand.calculateScore();
         //if that hit caused them to bust
@@ -100,7 +100,7 @@ public class Round {
         }
         System.out.println("Player score: " + playerCardScore);
         displayScores();
-        return cardNum;
+        return card;
     }
     //dealer algorithm
     public void dealerTurn() {

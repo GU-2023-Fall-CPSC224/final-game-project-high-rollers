@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 public class BlackJack {
 
@@ -11,10 +12,14 @@ public class BlackJack {
     Dealer dealer;
     Round round;
     Deck deck;
+    JTextArea textArea;
+    ImageIcon turnedOverCard;
+
     int hitCount = 1;
-    String playerCardNum1;
-    String playerCardNum2;
-    String dealerCardNum1;
+    Card playerCardNum1;
+    Card playerCardNum2;
+    Card dealerCardNum1;
+    Card dealerCardNum2;
 
     JFrame startingScreenFrame;
     JPanel startingScreenPanel;
@@ -70,6 +75,7 @@ public class BlackJack {
         playerCardNum1 = round.getCard();
         playerCardNum2 = round.getCard();
         dealerCardNum1 =  round.getDealerCard();
+        dealerCardNum2 =  round.getDealerCard();
     }
 
     void runGUI(){
@@ -82,10 +88,12 @@ public class BlackJack {
     }
 
     void startingScreenGUI(){
+
         this.startingScreenFrame = new JFrame("Black Jack");
         this.startingScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.startingScreenFrame.setLocation(100,100);
         this.startingScreenPanel = genStartingScreenPanel();
+        startingScreenFrame.setResizable(false);
         addButtonCallbackHandlers();
     }
     void blackJackGUI(){
@@ -94,10 +102,12 @@ public class BlackJack {
         this.blackJackScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.blackJackScreenFrame.setLocation(100,100);
         this.blackJackScreenPanel = genBlackJackGUI();
+        blackJackScreenFrame.setResizable(false);
 
         blackJackScreenFrame.setVisible(true);
 
         round.playRound();
+
     }
 
     private JPanel genStartingScreenPanel(){
@@ -106,7 +116,7 @@ public class BlackJack {
         setStartingTextStyle();
         newPanel.setLayout(null);
 
-        ImageIcon turnedOverCard = new ImageIcon(new ImageIcon("PNG-cards-1.3/card back red.png").getImage().getScaledInstance(150,150,Image.SCALE_DEFAULT));
+        turnedOverCard = new ImageIcon(new ImageIcon("PNG-cards-1.3/card back red.png").getImage().getScaledInstance(150,150,Image.SCALE_SMOOTH));
         startingCard.setIcon(turnedOverCard);
 
         newPanel.add(startButton);
@@ -135,10 +145,10 @@ public class BlackJack {
         newPanel.setLayout(null);
         newPanel.setBackground(new Color(35,54,5));
 
-        ImageIcon card1 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" +  playerCardNum1).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
-        ImageIcon card2 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + playerCardNum2).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
-        ImageIcon card3 = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + dealerCardNum1).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
-        ImageIcon turnedOverCard = new ImageIcon(new ImageIcon("PNG-cards-1.3/card back red.png").getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
+        ImageIcon card1 = new ImageIcon(new ImageIcon("" +  playerCardNum1.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
+        ImageIcon card2 = new ImageIcon(new ImageIcon("" + playerCardNum2.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
+        ImageIcon card3 = new ImageIcon(new ImageIcon("" + dealerCardNum1.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
+        ImageIcon turnedOverCard = new ImageIcon(new ImageIcon("PNG-cards-1.3/card back red.png").getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
 
 
         playerCard1.setHorizontalTextPosition(JLabel.CENTER); // set text according to JLabel ( Left, center, or right)
@@ -185,6 +195,20 @@ public class BlackJack {
         newPanel.add(hitButton);
         newPanel.add(standButton);
 
+        // Create a JTextArea
+        textArea = new JTextArea();
+        textArea.setLineWrap(true); // Enable text wrapping
+        textArea.setWrapStyleWord(true); // Wrap at word boundaries
+        textArea.setEditable(false);
+
+
+        // Create a JScrollPane and add the JTextArea to it
+//        JScrollPane scrollPane = new JScrollPane(textArea);
+//        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//
+//        scrollPane.setBounds(500,0, 200,300);
+//        blackJackScreenFrame.add(scrollPane);
+
         blackJackScreenFrame.add(newPanel);
         blackJackScreenFrame.setSize(700,550);
         blackJackScreenFrame.setVisible(true);
@@ -222,16 +246,19 @@ public class BlackJack {
             public void actionPerformed(ActionEvent e) {
                 int distance = (120 + 110 * hitCount);
 
-                String playerCardImage = round.playerTurn();
+                Card newCard = round.playerTurn();
+                //String player = round.deck.cards.
                 JLabel newPlayerCard  = new JLabel();
-                ImageIcon card = new ImageIcon(new ImageIcon("PNG-cards-1.3/" + playerCardImage).getImage().getScaledInstance(100,100,Image.SCALE_DEFAULT));
-                newPlayerCard.setIcon(card);
+                ImageIcon cardImage = new ImageIcon(new ImageIcon(newCard.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
+                newPlayerCard.setIcon(cardImage);
                 newPlayerCard.setBounds(distance, 280, 100, 100);
                 blackJackScreenPanel.add(newPlayerCard);
+                if(round.playerCardScore >= 21){
+                    standButton.doClick();
+                }
                 blackJackScreenPanel.revalidate();
                 blackJackScreenPanel.repaint();
 
-                hitCount++;
             }
         });
 
@@ -239,10 +266,63 @@ public class BlackJack {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Player Stand");
-                round.dealerTurn();
+                dealerTurn();
             }
         });
+
+
     }
 
+    public void dealerTurn() {
+        int dealerHitCount = 0;
+        System.out.println("dealer card 2: " + dealerCardNum2);
+        ImageIcon card3 = new ImageIcon(new ImageIcon(dealerCardNum2.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
+        dealerCard2.setIcon(card3);
+        blackJackScreenPanel.revalidate();
+        blackJackScreenPanel.repaint();
+        //round.setDealerCardScore();
+        //while the dealer card score is less than the player cards score
+
+        while (round.dealerCardScore < round.playerCardScore && (round.playerCardScore < 21)) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            dealerHitCount++;
+            //while it's less than we need a card so give dealer the card
+            int distance = (120 + 110 * dealerHitCount);
+            Card dealerCard = round.dealerHand.getDealerCard(deck);
+            ImageIcon newDealerCardImage = new ImageIcon(new ImageIcon(dealerCard.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
+            JLabel newPlayerCard  = new JLabel();
+            newPlayerCard.setIcon(newDealerCardImage);
+            newPlayerCard.setBounds(distance, 130, 100, 100);
+            blackJackScreenPanel.add(newPlayerCard);
+
+            dealerCard2.setIcon(card3);
+            hitCount++;
+            System.out.println("Dealer Hit");
+
+            //calculate the score with that new card
+            round.dealerCardScore = round.dealerHand.calculateScore();
+            //if the dealer busted then their turn is over
+            System.out.println("Dealer score: " + round.dealerCardScore);
+            if (round.dealerCardScore > round.BLACKJACK) {
+                System.out.println("DEALER BUST");
+                break;
+            }
+
+            blackJackScreenPanel.revalidate();
+            blackJackScreenPanel.repaint();
+
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
 
 }
