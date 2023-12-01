@@ -12,9 +12,8 @@ public class BlackJack{
     Dealer dealer;
     Round round;
     Deck deck;
-    JTextArea textArea;
+    boolean roundOver = false;
     ImageIcon turnedOverCard;
-    Image bgImage ;
 
     int hitCount = 1;
     Card playerCardNum1;
@@ -28,8 +27,9 @@ public class BlackJack{
     JPanel blackJackScreenPanel;
 
 
-    JButton hitButton  = new JButton("hit");
-    JButton standButton = new JButton("stand");
+    JButton hitButton  = new JButton("Hit");
+    JButton standButton = new JButton("Stand");
+    JButton continueButton = new JButton("Continue");
     JLabel playerCard1 = new JLabel();
     JLabel playerCard2 = new JLabel();
     JLabel dealerCard1 = new JLabel();
@@ -72,11 +72,28 @@ public class BlackJack{
 
     public BlackJack(){
         deck = new Deck();
+        startNextRound();
+
+    }
+
+    public void startNextRound(){
         round = new Round(this.deck);
         playerCardNum1 = round.getCard();
         playerCardNum2 = round.getCard();
         dealerCardNum1 =  round.getDealerCard();
         dealerCardNum2 =  round.getDealerCard();
+
+        //genBlackJackGUI();
+
+//        ImageIcon card1 = new ImageIcon(new ImageIcon("" +  playerCardNum1.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
+//        ImageIcon card2 = new ImageIcon(new ImageIcon("" + playerCardNum2.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
+//        ImageIcon card3 = new ImageIcon(new ImageIcon("" + dealerCardNum1.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
+//        ImageIcon turnedOverCard = new ImageIcon(new ImageIcon("PNG-cards-1.3/card back red.png").getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
+//
+//        playerCard1.setIcon(card1);
+//        playerCard2.setIcon(card2);
+//        dealerCard1.setIcon(card3);
+//        dealerCard2.setIcon(turnedOverCard);
     }
 
     void runGUI(){
@@ -175,6 +192,7 @@ public class BlackJack{
 
         hitButton.setBounds(250,0,100,25);
         standButton.setBounds(350,0,100,25);
+        continueButton.setBounds(450,0,100,25);
 
         playerText.setBounds(60,340, 100,100);
         dealerText.setBounds(60,190, 100,100);
@@ -195,6 +213,7 @@ public class BlackJack{
 
         newPanel.add(hitButton);
         newPanel.add(standButton);
+        newPanel.add(continueButton);
 
 //        ImageIcon icon = new ImageIcon("PNG-cards-1.3/table.jpeg");
 //        Image backGroundImage = icon.getImage();
@@ -223,47 +242,6 @@ public class BlackJack{
 
         groupNameText.setForeground(new Color(227, 217, 217));
         startingText.setForeground(new Color(227, 217, 217));
-    }
-
-    private void addButtonCallbackHandlers() {
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                startingScreenFrame.setVisible(false);
-                blackJackGUI();
-            }
-        });
-
-        hitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int distance = (120 + 110 * hitCount);
-
-                Card newCard = round.playerTurn();
-                //String player = round.deck.cards.
-                JLabel newPlayerCard  = new JLabel();
-                ImageIcon cardImage = new ImageIcon(new ImageIcon(newCard.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
-                newPlayerCard.setIcon(cardImage);
-                newPlayerCard.setBounds(distance, 280, 100, 100);
-                blackJackScreenPanel.add(newPlayerCard);
-                if(round.playerCardScore >= 21){
-                    standButton.doClick();
-                }
-                blackJackScreenPanel.revalidate();
-                blackJackScreenPanel.repaint();
-
-            }
-        });
-
-        standButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Player Stand");
-                dealerTurn();
-            }
-        });
-
-
     }
 
     public void dealerTurn() {
@@ -316,6 +294,62 @@ public class BlackJack{
             }
 
         }
+        roundOver = true;
     }
 
+    private void addButtonCallbackHandlers() {
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startingScreenFrame.setVisible(false);
+                blackJackGUI();
+            }
+        });
+
+        hitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(roundOver){
+                    return;
+                }
+
+                int distance = (120 + 110 * hitCount);
+
+                Card newCard = round.playerTurn();
+                //String player = round.deck.cards.
+                JLabel newPlayerCard  = new JLabel();
+                ImageIcon cardImage = new ImageIcon(new ImageIcon(newCard.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
+                newPlayerCard.setIcon(cardImage);
+                newPlayerCard.setBounds(distance, 280, 100, 100);
+                blackJackScreenPanel.add(newPlayerCard);
+                if(round.playerCardScore >= 21){
+                    standButton.doClick();
+                }
+                blackJackScreenPanel.revalidate();
+                blackJackScreenPanel.repaint();
+
+            }
+        });
+
+        standButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Player Stand");
+                if (roundOver){
+                    return;
+                }
+                dealerTurn();
+            }
+        });
+        continueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(roundOver){
+                    startNextRound();
+                    roundOver = false;
+                }
+
+            }
+        });
+    }
 }
