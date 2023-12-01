@@ -83,8 +83,8 @@ public class BlackJack{
         dealerCardNum1 =  round.getDealerCard();
         dealerCardNum2 =  round.getDealerCard();
 
-        blackJackScreenPanel.removeAll();
-        this.blackJackScreenPanel = genBlackJackGUI();
+       // blackJackScreenPanel.removeAll();
+       // this.blackJackScreenPanel = genBlackJackGUI();
 
 //        ImageIcon card1 = new ImageIcon(new ImageIcon("" +  playerCardNum1.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
 //        ImageIcon card2 = new ImageIcon(new ImageIcon("" + playerCardNum2.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
