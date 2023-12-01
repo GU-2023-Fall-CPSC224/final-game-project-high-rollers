@@ -23,6 +23,7 @@ public class Card {
     }
 
 
+
     public void setDealerHand(Boolean set){
         dealerHand = set;
     }

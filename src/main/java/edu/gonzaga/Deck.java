@@ -47,6 +47,7 @@ public class Deck {
         }
     }
 
+
     //for testing purposes to set the deck to what cards we want
     public Deck(ArrayList<Card> importCards) {
         cards = importCards;
