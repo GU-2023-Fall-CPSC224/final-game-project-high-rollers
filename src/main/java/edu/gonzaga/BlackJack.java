@@ -83,7 +83,8 @@ public class BlackJack{
         dealerCardNum1 =  round.getDealerCard();
         dealerCardNum2 =  round.getDealerCard();
 
-        //genBlackJackGUI();
+        blackJackScreenPanel.removeAll();
+        this.blackJackScreenPanel = genBlackJackGUI();
 
 //        ImageIcon card1 = new ImageIcon(new ImageIcon("" +  playerCardNum1.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
 //        ImageIcon card2 = new ImageIcon(new ImageIcon("" + playerCardNum2.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
@@ -121,7 +122,6 @@ public class BlackJack{
         this.blackJackScreenFrame.setLocation(100,100);
         this.blackJackScreenPanel = genBlackJackGUI();
         blackJackScreenFrame.setResizable(false);
-
         blackJackScreenFrame.setVisible(true);
 
         round.playRound();
@@ -255,11 +255,6 @@ public class BlackJack{
         //while the dealer card score is less than the player cards score
 
         while (round.dealerCardScore < round.playerCardScore && (round.playerCardScore < 21)) {
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
 
             dealerHitCount++;
             //while it's less than we need a card so give dealer the card
@@ -286,12 +281,6 @@ public class BlackJack{
 
             blackJackScreenPanel.revalidate();
             blackJackScreenPanel.repaint();
-
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
 
         }
         roundOver = true;
