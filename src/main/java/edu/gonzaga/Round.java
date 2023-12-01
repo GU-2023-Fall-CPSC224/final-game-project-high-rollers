@@ -18,20 +18,7 @@ public class Round {
     public Round(Deck deck) {
         this.deck = deck;
         System.out.println("------------ NEW ROUND ----------");
-        //shuffle the deck
         deck.shuffleDeck();
-        //deal as normal order give player top card then dealer top card
-        //playerHand.getPlayerCard(deck);
-        //dealerHand.getDealerCard(deck);
-        //using start score bc player can only see the first card dealer draws
-        dealerStartScore = dealerHand.calculateScore();
-        //then give each player another card
-        //playerHand.getPlayerCard(deck);
-        //dealerHand.getDealerCard(deck);
-        //calculate full scores of each hand
-        playerCardScore = playerHand.calculateScore();
-        dealerCardScore = dealerHand.calculateScore();
-
     }
     public Card getCard(){
         return playerHand.getPlayerCard(deck);
@@ -40,6 +27,9 @@ public class Round {
         return dealerHand.getDealerCard(deck);
     }
 
+    public int getDealerCardScore(){
+        return dealerCardScore;
+    }
 
 
 
@@ -81,9 +71,22 @@ public class Round {
     }
 // prints out the players card score and then the dealers first card
     private void displayStartScores() {
-        System.out.println("Player score: " + playerCardScore);
-        System.out.println("Dealer score: " + dealerStartScore + " + ?");
+       // System.out.println("Player score: " + playerCardScore);
+      //  System.out.println("Dealer score: " + dealerStartScore + " + ?");
     }
+    // prints out the players card score and then the dealers first card
+    public int getPlayerScore() {
+        return playerHand.calculateScore();
+    }
+    // prints out the players card score and then the dealers first card
+    public int getDealerScore() {
+        return dealerHand.calculateScore();
+    }
+    // prints out the players card score and then the dealers first card
+    public int getDealerStartScore() {
+        return dealerStartScore;
+    }
+
 // player algorithm
     public Card playerTurn() {
 
