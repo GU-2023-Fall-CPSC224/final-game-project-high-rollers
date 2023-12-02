@@ -138,7 +138,6 @@ public class BlackJack{
 
         newPanel.add(startButton);
         newPanel.add(backgroundScreen);
-        newPanel.add(backgroundScreen);
 
         startButton.setBounds(300,236,100,25);
         backgroundScreen.setBounds(0,0, 700,500);
@@ -156,7 +155,9 @@ public class BlackJack{
         JPanel newPanel = new JPanel();
 
         newPanel.setLayout(null);
-        newPanel.setBackground(new Color(35,54,5));
+        background = new ImageIcon(new ImageIcon("PNG-cards-1.3/table.png").getImage().getScaledInstance(700,500,Image.SCALE_SMOOTH));
+        backgroundScreen.setIcon(background);
+
 
         ImageIcon card1 = new ImageIcon(new ImageIcon("" +  playerCardNum1.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
         ImageIcon card2 = new ImageIcon(new ImageIcon("" + playerCardNum2.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
@@ -209,6 +210,7 @@ public class BlackJack{
         newPanel.add(hitButton);
         newPanel.add(standButton);
         newPanel.add(continueButton);
+        newPanel.add(backgroundScreen);
 
 //        ImageIcon icon = new ImageIcon("PNG-cards-1.3/table.jpeg");
 //        Image backGroundImage = icon.getImage();
@@ -216,8 +218,9 @@ public class BlackJack{
 //        paintComponent(backGroundImage);
 
 
+
         blackJackScreenFrame.add(newPanel);
-        blackJackScreenFrame.setSize(700,550);
+        blackJackScreenFrame.setSize(700,525);
         blackJackScreenFrame.setVisible(true);
         blackJackScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit out of application
 
