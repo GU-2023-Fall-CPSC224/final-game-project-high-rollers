@@ -32,6 +32,9 @@ public class Bet {
     public void setBetValue() {
         betValue = 0;
     }
+    public double getBetValue() {
+        return betValue;
+    }
 
     public void betLoss() {
         bankRoll -= (int) betValue;

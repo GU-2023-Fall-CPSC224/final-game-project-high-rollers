@@ -343,7 +343,6 @@ public class BlackJack{
             roundHighlights = roundHighlights + "\n" + "Game Tie";
             textArea.setText(roundHighlights);
             textArea.setText(roundHighlights);
-            bankroll.resetBet();
         }
         else if (round.dealerCardScore  == round.BLACKJACK) {
             System.out.println("Dealer BlackJack");
