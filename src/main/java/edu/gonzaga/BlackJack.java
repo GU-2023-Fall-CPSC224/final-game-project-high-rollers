@@ -17,6 +17,7 @@ public class BlackJack{
     Dealer dealer;
     Round round;
     Deck deck;
+    Bet bankroll;
     boolean roundOver = false;
     ImageIcon turnedOverCard;
 
@@ -33,6 +34,9 @@ public class BlackJack{
     JPanel blackJackScreenPanel;
 
 
+    JButton betButton = new JButton("Bet");
+    JTextField betLabel = new JTextField("BankRoll: ");
+    JTextField betAmountTextField = new JTextField();
     JButton hitButton  = new JButton("Hit");
     JButton standButton = new JButton("Stand");
     JButton continueButton = new JButton("Continue");
@@ -81,6 +85,7 @@ public class BlackJack{
 
     public BlackJack(){
         deck = new Deck();
+        bankroll = new Bet();
         startNextRound();
 
     }
@@ -213,6 +218,11 @@ public class BlackJack{
         hitButton.setBounds(250,0,100,25);
         standButton.setBounds(350,0,100,25);
         continueButton.setBounds(450,0,100,25);
+        betButton.setBounds(100,0,76,25);
+        betLabel.setBounds(0,0,95,25);
+        this.betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
+        betAmountTextField.setBounds(180,0,50,25);
+        this.betAmountTextField.setText("0");
 
         playerText.setBounds(60,340, 100,100);
         dealerText.setBounds(60,190, 100,100);
@@ -252,7 +262,9 @@ public class BlackJack{
         newPanel.add(playerScoreLabel);
         newPanel.add(dealerScoreLabel);
 
-
+        newPanel.add(betButton);
+        newPanel.add(betLabel);
+        newPanel.add(betAmountTextField);
         newPanel.add(hitButton);
         newPanel.add(standButton);
         newPanel.add(continueButton);
@@ -309,7 +321,8 @@ public class BlackJack{
                 System.out.println("DEALER BUST");
                 roundHighlights = roundHighlights + "\n" + "Dealer Bust -> Player Wins";
                 textArea.setText(roundHighlights);
-
+                bankroll.betWin();
+                betLabel.setText("bankRoll: " + bankroll.getBankRollAmount());
                 break;
             }
 
@@ -322,21 +335,44 @@ public class BlackJack{
             System.out.println("DEALER WINS");
             roundHighlights = roundHighlights + "\n" + "Dealer WINS";
             textArea.setText(roundHighlights);
-
+            bankroll.betLoss();
+            betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
         }
         else if (round.dealerCardScore  == round.playerCardScore) {
             System.out.println("Game Tie");
             roundHighlights = roundHighlights + "\n" + "Game Tie";
             textArea.setText(roundHighlights);
+            textArea.setText(roundHighlights);
+            bankroll.resetBet();
         }
         else if (round.dealerCardScore  == round.BLACKJACK) {
             System.out.println("Dealer BlackJack");
             roundHighlights = roundHighlights + "\n" + "Dealer BlackJack";
             textArea.setText(roundHighlights);
+            bankroll.betLoss();
+            betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
         }
     }
 
     private void addButtonCallbackHandlers() {
+        betButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(betAmountTextField.getText());
+                if(bankroll.getBankRollAmount() <= 0) {
+                    System.out.println("You have no more money to bet with");
+                    bankroll.setBetValue();
+                    roundHighlights = roundHighlights + "\n" + "You have no more money to bet with";
+                    textArea.setText(roundHighlights);
+                    return;
+                }
+                bankroll.addBet(Integer.parseInt(betAmountTextField.getText()));
+                roundHighlights = roundHighlights + "\n" + "Possible payout: " + bankroll.getPayout();
+                textArea.setText(roundHighlights);
+                System.out.println("Possible payout: " + bankroll.getPayout());
+            }
+        });
+
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -388,10 +424,14 @@ public class BlackJack{
                 if(round.getPlayerScore() == 21){
                     roundHighlights = roundHighlights + "\n" + "Player BlackJack";
                     textArea.setText(roundHighlights);
+                    bankroll.betWin();
+                    betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
                 }
                 else if(round.getPlayerScore() > 21){
                     roundHighlights = roundHighlights + "\n" + "Player Bust -> Dealer Wins";
                     textArea.setText(roundHighlights);
+                    bankroll.betLoss();
+                    betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
                 }else{
                     roundHighlights = roundHighlights + "\n" + "Player Stand";
                     textArea.setText(roundHighlights);
