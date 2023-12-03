@@ -8,8 +8,7 @@ public class Player {
     private Hand playerHand;
     private String name;
 
-    public Player(String name){
-        this.name = "DEFAULT_NAME";
+    public Player(){
         this.playerHand = new Hand();
     }
 
@@ -21,7 +20,13 @@ public class Player {
         this.playerHand = hand;
     }
     public void setName(String name){
-        this.name = name;
+        if(name == ""){
+            this.name = "DEFAULT_USERNAME";
+        }
+        else {
+            this.name = name;
+        }
+
     }
 
     public String getName(){
