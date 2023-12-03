@@ -5,8 +5,8 @@
 
 ### Team Information:
 
-- Team Name:  
-- Students on team:
+- Team Name: High Rollers
+- Students on team: Harrison, Cooper, Asher
 - Semester: Fall 2023
 
 
