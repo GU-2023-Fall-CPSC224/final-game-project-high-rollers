@@ -51,6 +51,17 @@ public class BlackJack{
     JLabel startingText = new JLabel("Welcome to Java Blackjack");
     JLabel groupNameText = new JLabel("Designed by: Harrison, Cooper, Asher");
 
+
+
+    ImageIcon background;
+
+
+    ImageIcon icon = new ImageIcon("PNG-cards-1.3/start.png");
+
+    // starting Screen
+    JLabel backgroundScreen = new JLabel();
+
+
     public static void main(String [] args){
         BlackJack app = new BlackJack();
         app.runGUI();
