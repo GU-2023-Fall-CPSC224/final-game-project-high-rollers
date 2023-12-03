@@ -8,6 +8,11 @@ import java.util.concurrent.TimeUnit;
 
 public class BlackJack{
 
+    ImageIcon background;
+    ImageIcon icon = new ImageIcon("PNG-cards-1.3/start.png");
+    // starting Screen
+    JLabel backgroundScreen = new JLabel();
+
     Player player;
     Dealer dealer;
     Round round;
@@ -31,6 +36,8 @@ public class BlackJack{
     JButton hitButton  = new JButton("Hit");
     JButton standButton = new JButton("Stand");
     JButton continueButton = new JButton("Continue");
+    JButton startButton  = new JButton(icon);
+
     JLabel playerCard1 = new JLabel();
     JLabel playerCard2 = new JLabel();
     JLabel dealerCard1 = new JLabel();
@@ -45,11 +52,6 @@ public class BlackJack{
     String roundHighlights = "";
     JTextArea textArea = new JTextArea();
 
-    // starting Screen
-    JButton startButton  = new JButton("Start");
-    JLabel startingCard = new JLabel();
-    JLabel startingText = new JLabel("Welcome to Java Blackjack");
-    JLabel groupNameText = new JLabel("Designed by: Harrison, Cooper, Asher");
 
     public static void main(String [] args){
         BlackJack app = new BlackJack();
@@ -102,8 +104,6 @@ public class BlackJack{
             this.blackJackScreenPanel = genBlackJackGUI();
             blackJackScreenFrame.add(blackJackScreenPanel);
 
-
-
             blackJackScreenPanel.revalidate();
             blackJackScreenPanel.repaint();
 
@@ -134,6 +134,7 @@ public class BlackJack{
         this.startingScreenPanel = genStartingScreenPanel();
         startingScreenFrame.setResizable(false);
         addButtonCallbackHandlers();
+        new Background();
     }
     void blackJackGUI(){
 
@@ -152,41 +153,39 @@ public class BlackJack{
     private JPanel genStartingScreenPanel(){
 
         JPanel newPanel = new JPanel();
-        setStartingTextStyle();
         newPanel.setLayout(null);
 
-        turnedOverCard = new ImageIcon(new ImageIcon("PNG-cards-1.3/card back red.png").getImage().getScaledInstance(150,150,Image.SCALE_SMOOTH));
-        startingCard.setIcon(turnedOverCard);
+        background = new ImageIcon(new ImageIcon("PNG-cards-1.3/intro.png").getImage().getScaledInstance(700,500,Image.SCALE_SMOOTH));
+        backgroundScreen.setIcon(background);
+
 
         newPanel.add(startButton);
-        newPanel.add(startingCard);
-        newPanel.add(startingText);
-        newPanel.add(groupNameText);
-        newPanel.add(startingCard);
+        newPanel.add(backgroundScreen);
 
-        startButton.setBounds(300,400,100,25);
-        startingText.setBounds(250,0 , 500,50);
-        groupNameText.setBounds(200,28, 500,100);
-        startingCard.setBounds(300,150, 150,150);
+        startButton.setBounds(300,236,100,25);
+        backgroundScreen.setBounds(0,0, 700,500);
 
         startingScreenFrame.add(newPanel);
-        startingScreenFrame.setSize(700,550);
+        startingScreenFrame.setSize(700,525);
         startingScreenFrame.setVisible(true);
         startingScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit out of application
         newPanel.setBackground(new Color(35,54,5));
 
         return newPanel;
+
     }
 
     private JPanel genBlackJackGUI(){
         JPanel newPanel = new JPanel();
-
         newPanel.setLayout(null);
-        newPanel.setBackground(new Color(35,54,5));
 
-        ImageIcon card1 = new ImageIcon(new ImageIcon("" +  playerCardNum1.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
-        ImageIcon card2 = new ImageIcon(new ImageIcon("" + playerCardNum2.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
-        ImageIcon card3 = new ImageIcon(new ImageIcon("" + dealerCardNum1.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
+        background = new ImageIcon(new ImageIcon("PNG-cards-1.3/table.png").getImage().getScaledInstance(700,500,Image.SCALE_SMOOTH));
+        backgroundScreen.setIcon(background);
+
+
+        ImageIcon card1 = new ImageIcon(new ImageIcon(playerCardNum1.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
+        ImageIcon card2 = new ImageIcon(new ImageIcon( playerCardNum2.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
+        ImageIcon card3 = new ImageIcon(new ImageIcon(dealerCardNum1.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
         ImageIcon turnedOverCard = new ImageIcon(new ImageIcon("PNG-cards-1.3/card back red.png").getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
 
 
@@ -258,31 +257,19 @@ public class BlackJack{
         newPanel.add(standButton);
         newPanel.add(continueButton);
         newPanel.add(scrollPane);
+        newPanel.add(backgroundScreen);
         textArea.setText(roundHighlights);
 
 
         blackJackScreenFrame.add(newPanel);
-        blackJackScreenFrame.setSize(700,550);
+        blackJackScreenFrame.setSize(700,525);
         blackJackScreenFrame.setVisible(true);
         blackJackScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit out of application
 
         return newPanel;
     }
 
-    public void setStartingTextStyle(){
-        startingText.setHorizontalTextPosition(JLabel.CENTER); // set text according to JLabel ( Left, center, or right)
-        startingText.setVerticalTextPosition(JLabel.BOTTOM);
-        startingText.setFont(new Font("MV Boli", Font.ITALIC, 17)); // set font of text
-        startingText.setIconTextGap(10); // set gap of text to image either plus or minus
 
-        groupNameText.setHorizontalTextPosition(JLabel.CENTER); // set text according to JLabel ( Left, center, or right)
-        groupNameText.setVerticalTextPosition(JLabel.BOTTOM);
-        groupNameText.setFont(new Font("MV Boli", Font.ITALIC, 17)); // set font of text
-        groupNameText.setIconTextGap(10); // set gap of text to image either plus or minus
-
-        groupNameText.setForeground(new Color(227, 217, 217));
-        startingText.setForeground(new Color(227, 217, 217));
-    }
 
     public void dealerTurn() {
         int dealerHitCount = 0;
