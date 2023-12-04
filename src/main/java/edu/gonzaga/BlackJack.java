@@ -53,6 +53,11 @@ public class BlackJack{
     JButton startButton  = new JButton(startIcon);
     JButton settingsButton = new JButton(settingsIcon);
 
+    JCheckBox bettingToggle = new JCheckBox("Betting enable");
+    JCheckBox autoDeal = new JCheckBox("Auto Deal");
+    //JCheckBox ;
+    JButton returnButton = new JButton("Save and Return to Start");
+
     JLabel playerCard1 = new JLabel();
     JLabel playerCard2 = new JLabel();
     JLabel dealerCard1 = new JLabel();
@@ -171,13 +176,20 @@ public class BlackJack{
         background = new ImageIcon(new ImageIcon("PNG-cards-1.3/table.png").getImage().getScaledInstance(700,500,Image.SCALE_SMOOTH));
         backgroundScreen.setIcon(background);
 
+        newPanel.add(bettingToggle);
+        newPanel.add(autoDeal);
+        newPanel.add(returnButton);
         newPanel.add(backgroundScreen);
 
+
         backgroundScreen.setBounds(0,0, 700,500);
+        bettingToggle.setBounds(50,50, 100,100);
+        autoDeal.setBounds(100,100, 100,100);
+        returnButton.setBounds(25,100, 100,100);
 
         settingScreenFrame.add(newPanel);
         settingScreenFrame.setSize(700,525);
-        settingScreenFrame.setVisible(true);
+        settingScreenFrame.setVisible(false);
         settingScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit out of application
 
         return newPanel;
@@ -519,6 +531,14 @@ public class BlackJack{
             public void actionPerformed(ActionEvent e) {
                 startingScreenFrame.setVisible(false);
                 settingScreenFrame.setVisible(true);
+            }
+        });
+        returnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startingScreenFrame.setVisible(true);
+                settingScreenFrame.setVisible(false);
+
             }
         });
     }
