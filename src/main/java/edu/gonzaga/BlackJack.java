@@ -67,29 +67,10 @@ public class BlackJack{
     JTextArea textArea = new JTextArea();
 
     public static void main(String [] args){
-        BlackJack app = new BlackJack();
-        app.runGUI();
-
-        /*
-        for(int i = 0; i < 10; i++){
-            Round round = new Round(new Deck());
-            winStatus = round.playRound();
-            if(winStatus == 2){
-                playerWins++;
-                System.out.println("PLAYER WIN");
-            }
-            else if (winStatus == 1){
-                System.out.println("TIE");
-            }
-            else{
-                dealerWins++;
-                System.out.println("DEALER WIN");
-            }
-        }
-        System.out.println("PLAYER WINS: " + playerWins);
-        System.out.println("DEALER WINS: " + dealerWins);
-         */
-
+        EventQueue.invokeLater(() ->{
+            BlackJack app = new BlackJack();
+            app.runGUI();
+                });
     }
 
     public BlackJack(){
@@ -203,12 +184,14 @@ public class BlackJack{
         newPanel.setLayout(null);
 
         background = new ImageIcon(new ImageIcon("Graphics/intro.png").getImage().getScaledInstance(700,500,Image.SCALE_SMOOTH));
-        backgroundScreen.setIcon(background);
 
 
-        newPanel.add(backgroundScreen);
-        newPanel.add(settingsButton, JLayeredPane.POPUP_LAYER);
+
+        newPanel.add(settingsButton);
         newPanel.add(startButton);
+        backgroundScreen.setIcon(background);
+        newPanel.add(backgroundScreen);
+
 
 
 
@@ -216,6 +199,7 @@ public class BlackJack{
         startButton.setBounds(200,236,100,25);
         settingsButton.setBounds(400, 236, 100, 25);
         backgroundScreen.setBounds(0,0, 700,500);
+
 
         startingScreenFrame.add(newPanel);
         startingScreenFrame.setSize(700,525);
