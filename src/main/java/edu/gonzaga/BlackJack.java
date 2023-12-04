@@ -45,33 +45,11 @@ public class BlackJack{
     public static void main(String [] args){
         BlackJack app = new BlackJack();
         app.runGUI();
-
-        /*
-        for(int i = 0; i < 10; i++){
-            Round round = new Round(new Deck());
-            winStatus = round.playRound();
-            if(winStatus == 2){
-                playerWins++;
-                System.out.println("PLAYER WIN");
-            }
-            else if (winStatus == 1){
-                System.out.println("TIE");
-            }
-            else{
-                dealerWins++;
-                System.out.println("DEALER WIN");
-            }
-        }
-        System.out.println("PLAYER WINS: " + playerWins);
-        System.out.println("DEALER WINS: " + dealerWins);
-         */
-
     }
 
     public BlackJack(){
         deck = new Deck();
         startNextRound();
-
     }
 
     public void startNextRound(){
@@ -80,19 +58,6 @@ public class BlackJack{
         playerCardNum2 = round.getCard();
         dealerCardNum1 =  round.getDealerCard();
         dealerCardNum2 =  round.getDealerCard();
-
-       // blackJackScreenPanel.removeAll();
-       // this.blackJackScreenPanel = genBlackJackGUI();
-
-//        ImageIcon card1 = new ImageIcon(new ImageIcon("" +  playerCardNum1.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
-//        ImageIcon card2 = new ImageIcon(new ImageIcon("" + playerCardNum2.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
-//        ImageIcon card3 = new ImageIcon(new ImageIcon("" + dealerCardNum1.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
-//        ImageIcon turnedOverCard = new ImageIcon(new ImageIcon("PNG-cards-1.3/card back red.png").getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
-//
-//        playerCard1.setIcon(card1);
-//        playerCard2.setIcon(card2);
-//        dealerCard1.setIcon(card3);
-//        dealerCard2.setIcon(turnedOverCard);
     }
 
     void runGUI(){
@@ -320,7 +285,6 @@ public class BlackJack{
                     startNextRound();
                     roundOver = false;
                 }
-
             }
         });
     }
