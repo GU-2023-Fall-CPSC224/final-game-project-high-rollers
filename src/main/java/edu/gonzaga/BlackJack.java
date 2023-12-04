@@ -106,11 +106,14 @@ public class BlackJack{
         if (!firstRound) {
             // Clearing the panel
             blackJackScreenPanel.removeAll();
+            backgroundScreen.removeAll();
             this.blackJackScreenPanel = genBlackJackGUI();
-            blackJackScreenFrame.add(blackJackScreenPanel);
 
             blackJackScreenPanel.revalidate();
             blackJackScreenPanel.repaint();
+
+            blackJackScreenFrame.add(blackJackScreenPanel);
+
 
             hitCount = 1;
         }
@@ -220,6 +223,7 @@ public class BlackJack{
         continueButton.setBounds(450,0,100,25);
         betButton.setBounds(100,0,76,25);
         betLabel.setBounds(5,0,95,25);
+        betLabel.setForeground(new Color(227, 217, 217));
         this.betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
         betLabel.setForeground(new Color(227, 217, 217));
         betAmountTextField.setBounds(180,0,50,25);
@@ -228,7 +232,7 @@ public class BlackJack{
         playerText.setBounds(60,340, 100,100);
         dealerText.setBounds(60,190, 100,100);
         playerScoreLabel.setBounds(playerText.getX(), playerText.getY() + 20, 100,100);
-        dealerScoreLabel.setBounds(dealerText.getX(), dealerText.getY() + 20, 100,100);
+        dealerScoreLabel.setBounds(dealerText.getX(), dealerText.getY() + 20, 150,100);
 
         playerText.setFont(new Font("MV Boli", Font.ITALIC, 13)); // set font of text
         dealerText.setFont(new Font("MV Boli", Font.ITALIC, 13)); // set font of text
@@ -252,7 +256,6 @@ public class BlackJack{
         scrollPane.setBounds(playerText.getX() - 50, playerText.getY() + 100, 200,50);
 
 
-
         newPanel.add(playerCard1);
         newPanel.add(playerCard2);
         newPanel.add(dealerCard1);
@@ -271,6 +274,7 @@ public class BlackJack{
         newPanel.add(continueButton);
         newPanel.add(scrollPane);
         newPanel.add(backgroundScreen);
+       // newPanel.add(backgroundScreen, JLayeredPane.DEFAULT_LAYER);
         textArea.setText(roundHighlights);
 
 
@@ -285,32 +289,36 @@ public class BlackJack{
 
 
     public void dealerTurn() {
-        int dealerHitCount = 0;
+        int dealerHitCount = 1;
         ImageIcon card3 = new ImageIcon(new ImageIcon(dealerCardNum2.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
+        System.out.println(dealerCardNum2.getCardName());
         dealerCard2.setIcon(card3);
+        dealerScoreLabel.setText("Dealer Score: " + round.dealerCardScore);
+
         blackJackScreenPanel.revalidate();
         blackJackScreenPanel.repaint();
         //round.setDealerCardScore();
         //while the dealer card score is less than the player cards score
 
+        System.out.println("dealer card score: " + round.dealerCardScore);
+        System.out.println("round card score: " + round.playerCardScore);
+        System.out.println("less than 21: " + (round.playerCardScore < 21));
+
         while (round.dealerCardScore < round.playerCardScore && (round.playerCardScore < 21)) {
 
-            dealerHitCount++;
             //while it's less than we need a card so give dealer the card
             int distance = (120 + 110 * dealerHitCount);
             Card dealerCard = round.dealerHand.getDealerCard(deck);
+            System.out.println(dealerCard.getCardName());
             ImageIcon newDealerCardImage = new ImageIcon(new ImageIcon(dealerCard.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
             JLabel newPlayerCard  = new JLabel();
             newPlayerCard.setIcon(newDealerCardImage);
             newPlayerCard.setBounds(distance, 130, 100, 100);
-            blackJackScreenPanel.add(newPlayerCard);
+            backgroundScreen.add(newPlayerCard, JLayeredPane.PALETTE_LAYER);
 
             dealerCard2.setIcon(card3);
-            hitCount++;
+            dealerHitCount++;
             System.out.println("Dealer Hit");
-
-
-
 
             //calculate the score with that new card
             round.dealerCardScore = round.dealerHand.calculateScore();
@@ -324,6 +332,8 @@ public class BlackJack{
                 textArea.setText(roundHighlights);
                 bankroll.betWin();
                 betLabel.setText("bankRoll: " + bankroll.getBankRollAmount());
+                blackJackScreenPanel.revalidate();
+                blackJackScreenPanel.repaint();
                 break;
             }
 
@@ -342,7 +352,6 @@ public class BlackJack{
         else if (round.dealerCardScore  == round.playerCardScore) {
             System.out.println("Game Tie");
             roundHighlights = roundHighlights + "\n" + "Game Tie";
-            textArea.setText(roundHighlights);
             textArea.setText(roundHighlights);
         }
         else if (round.dealerCardScore  == round.BLACKJACK) {
@@ -378,6 +387,8 @@ public class BlackJack{
                 bankroll.addBet(Integer.parseInt(betAmountTextField.getText()));
                 roundHighlights = roundHighlights + "\n" + "Possible payout: " + bankroll.getPayout();
                 textArea.setText(roundHighlights);
+                //betLabel.setText("Bankroll: " + (bankroll.getBankRollAmount() - bankroll.betValue));
+                System.out.println("Possible payout: " + bankroll.getPayout());
             }
         });
 
@@ -395,7 +406,6 @@ public class BlackJack{
                 if(roundOver){
                     return;
                 }
-
                 roundHighlights = roundHighlights + "\n" + "Player Hit";
                 textArea.setText(roundHighlights);
 
@@ -407,7 +417,7 @@ public class BlackJack{
                 ImageIcon cardImage = new ImageIcon(new ImageIcon(newCard.getCardName()).getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
                 newPlayerCard.setIcon(cardImage);
                 newPlayerCard.setBounds(distance, 280, 100, 100);
-                blackJackScreenPanel.add(newPlayerCard);
+                backgroundScreen.add(newPlayerCard, JLayeredPane.PALETTE_LAYER);
                 if(round.playerCardScore >= 21){
                     standButton.doClick();
                 }
@@ -416,6 +426,7 @@ public class BlackJack{
                 blackJackScreenPanel.revalidate();
                 blackJackScreenPanel.repaint();
 
+                hitCount++;
             }
         });
 
