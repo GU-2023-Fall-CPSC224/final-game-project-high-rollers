@@ -10,8 +10,15 @@ public class BlackJack{
 
     ImageIcon background;
     ImageIcon icon = new ImageIcon("PNG-cards-1.3/start.png");
+    ImageIcon settingBackground = new ImageIcon(new ImageIcon("PNG-cards-1.3/BJSettingScreen.jpg").getImage().getScaledInstance(700,500,Image.SCALE_SMOOTH));
+
+    ImageIcon settingBackground2 =new ImageIcon("PNG-cards-1.3/BJSettingScreen.jpg");
+    JLabel backgroundLabel = new JLabel(settingBackground);
+
     // starting Screen
     JLabel backgroundScreen = new JLabel();
+    JLabel settingBackgroundScreen = new JLabel();
+
 
     Player player;
     Dealer dealer;
@@ -29,7 +36,9 @@ public class BlackJack{
     Card dealerCardNum2;
 
     JFrame startingScreenFrame;
+    JFrame settingScreenFrame;
     JPanel startingScreenPanel;
+    JPanel settingScreenPanel = new JPanel();
     JFrame blackJackScreenFrame;
     JPanel blackJackScreenPanel;
 
@@ -41,6 +50,7 @@ public class BlackJack{
     JButton standButton = new JButton("Stand");
     JButton continueButton = new JButton("Continue");
     JButton startButton  = new JButton(icon);
+    JButton settingsButton = new JButton("Settings");
 
     JLabel playerCard1 = new JLabel();
     JLabel playerCard2 = new JLabel();
@@ -52,10 +62,8 @@ public class BlackJack{
     JLabel playerScoreLabel = new JLabel("Player Score: "); // Initializing with default score
     JLabel dealerScoreLabel = new JLabel("Dealer Score: "); // Initializing with default score
 
-
     String roundHighlights = "";
     JTextArea textArea = new JTextArea();
-
 
     public static void main(String [] args){
         BlackJack app = new BlackJack();
@@ -143,6 +151,43 @@ public class BlackJack{
         startingScreenFrame.setResizable(false);
         addButtonCallbackHandlers();
         new Background();
+        settingScreenGUI();
+    }
+
+    void settingScreenGUI(){
+
+        this.settingScreenFrame = new JFrame("Black Jack");
+        this.settingScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.settingScreenFrame.setLocation(startingScreenFrame.getX(), startingScreenFrame.getY());
+
+        // Create a JLabel with the image
+        ImageIcon backgroundImage = new ImageIcon("PNG-cards-1.3/BJSettingScreen.jpg");
+        JLabel backgroundLabel = new JLabel(backgroundImage);
+
+        // Set the layout manager of the layered pane to null
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setLayout(null);
+
+        // Set the bounds of the background label to cover the entire frame
+        backgroundLabel.setBounds(0, 0,500,700);
+
+        // Add the background label to the layered pane at the DEFAULT_LAYER
+        layeredPane.add(backgroundLabel, JLayeredPane.DEFAULT_LAYER);
+
+        // Set the content pane of the frame to the layered pane
+        settingScreenFrame.setContentPane(layeredPane);
+
+//        settingScreenFrame.setResizable(false);
+//        settingScreenFrame.setVisible(false);
+
+        //settingBackgroundScreen.setIcon(settingBackground2);
+        //settingBackgroundScreen.setBounds(0,0, 700,500);
+
+        settingScreenPanel.setLayout(null);
+        settingScreenPanel.add(settingBackgroundScreen);
+        settingScreenFrame.setSize(700,500);
+        settingScreenFrame.add(settingScreenPanel);
+
     }
     void blackJackGUI(){
 
@@ -166,18 +211,19 @@ public class BlackJack{
         background = new ImageIcon(new ImageIcon("PNG-cards-1.3/intro.png").getImage().getScaledInstance(700,500,Image.SCALE_SMOOTH));
         backgroundScreen.setIcon(background);
 
-
         newPanel.add(startButton);
         newPanel.add(backgroundScreen);
+        newPanel.add(settingsButton, JLayeredPane.POPUP_LAYER);
 
         startButton.setBounds(300,236,100,25);
+        settingsButton.setBounds(startButton.getX() + 50, startButton.getY() + 50, 100, 25);
         backgroundScreen.setBounds(0,0, 700,500);
 
         startingScreenFrame.add(newPanel);
         startingScreenFrame.setSize(700,525);
         startingScreenFrame.setVisible(true);
         startingScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit out of application
-        newPanel.setBackground(new Color(35,54,5));
+       // newPanel.setBackground(new Color(35,54,5));
 
         return newPanel;
 
@@ -330,7 +376,7 @@ public class BlackJack{
                 roundHighlights = roundHighlights + "\n" + "Dealer Bust -> Player Wins";
                 textArea.setText(roundHighlights);
                 bankroll.betWin();
-                betLabel.setText("bankRoll: " + bankroll.getBankRollAmount());
+                betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
                 blackJackScreenPanel.revalidate();
                 blackJackScreenPanel.repaint();
                 break;
@@ -458,6 +504,13 @@ public class BlackJack{
                     firstRound = false;
                 }
 
+            }
+        });
+        settingsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startingScreenFrame.setVisible(false);
+                settingScreenFrame.setVisible(true);
             }
         });
     }
