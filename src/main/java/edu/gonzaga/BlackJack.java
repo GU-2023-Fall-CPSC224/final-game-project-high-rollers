@@ -143,7 +143,7 @@ public class BlackJack{
         backgroundScreen.setBounds(0,0, 700,500);
 
         startingScreenFrame.add(newPanel);
-        startingScreenFrame.setSize(700,525);
+        startingScreenFrame.setSize(700,500);
         startingScreenFrame.setVisible(true);
         startingScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit out of application
         newPanel.setBackground(new Color(35,54,5));
@@ -220,7 +220,7 @@ public class BlackJack{
 
 
         blackJackScreenFrame.add(newPanel);
-        blackJackScreenFrame.setSize(700,525);
+        blackJackScreenFrame.setSize(700,500);
         blackJackScreenFrame.setVisible(true);
         blackJackScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit out of application
 
