@@ -420,6 +420,13 @@ public class BlackJack{
                     textArea.setText(roundHighlights);
                     return;
                 }
+                if(bankroll.getBankRollAmount() <= Integer.parseInt(betAmountTextField.getText())) {
+                    System.out.println("You are betting more than you have");
+                    //bankroll.setBetValue();
+                    roundHighlights = roundHighlights + "\n" + "You don't have enough money";
+                    textArea.setText(roundHighlights);
+                    return;
+                }
                 bankroll.addBet(Integer.parseInt(betAmountTextField.getText()));
                 roundHighlights = roundHighlights + "\n" + "Possible payout: " + bankroll.getPayout();
                 textArea.setText(roundHighlights);
@@ -502,6 +509,9 @@ public class BlackJack{
                     startNextRound();
                     roundOver = false;
                     firstRound = false;
+                }else{
+                    roundHighlights = roundHighlights + "\n" + "Click Stand to Continue";
+                    textArea.setText(roundHighlights);
                 }
 
             }
