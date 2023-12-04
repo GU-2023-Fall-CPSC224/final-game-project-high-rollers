@@ -219,7 +219,7 @@ public class BlackJack{
         standButton.setBounds(350,0,100,25);
         continueButton.setBounds(450,0,100,25);
         betButton.setBounds(100,0,76,25);
-        betLabel.setBounds(4,0,95,25);
+        betLabel.setBounds(5,0,95,25);
         this.betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
         betLabel.setForeground(new Color(227, 217, 217));
         betAmountTextField.setBounds(180,0,50,25);
@@ -359,17 +359,25 @@ public class BlackJack{
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(betAmountTextField.getText());
-                if(bankroll.getBankRollAmount() <= 0) {
+                if((bankroll.getBankRollAmount() <= 0)) {
                     System.out.println("You have no more money to bet with");
                     bankroll.setBetValue();
+                    betAmountTextField.setText("0");
                     roundHighlights = roundHighlights + "\n" + "You have no more money to bet with";
+                    textArea.setText(roundHighlights);
+                    return;
+                }
+                else if((Integer.parseInt(betAmountTextField.getText()) > bankroll.getBankRollAmount())){
+                    System.out.println("You can't bet higher than your bankroll");
+                    bankroll.setBetValue();
+                    betAmountTextField.setText("0");
+                    roundHighlights = roundHighlights + "\n" + "You can't bet higher than your bankroll";
                     textArea.setText(roundHighlights);
                     return;
                 }
                 bankroll.addBet(Integer.parseInt(betAmountTextField.getText()));
                 roundHighlights = roundHighlights + "\n" + "Possible payout: " + bankroll.getPayout();
                 textArea.setText(roundHighlights);
-                System.out.println("Possible payout: " + bankroll.getPayout());
             }
         });
 
