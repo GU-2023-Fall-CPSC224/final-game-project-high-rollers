@@ -35,7 +35,7 @@ public class BlackJack{
 
 
     JButton betButton = new JButton("Bet");
-    JTextField betLabel = new JTextField("BankRoll: ");
+    JLabel betLabel = new JLabel("BankRoll: ");
     JTextField betAmountTextField = new JTextField();
     JButton hitButton  = new JButton("Hit");
     JButton standButton = new JButton("Stand");
@@ -223,6 +223,7 @@ public class BlackJack{
         continueButton.setBounds(450,0,100,25);
         betButton.setBounds(100,0,76,25);
         betLabel.setBounds(0,0,95,25);
+        betLabel.setForeground(new Color(227, 217, 217));
         this.betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
         betAmountTextField.setBounds(180,0,50,25);
         this.betAmountTextField.setText("0");
