@@ -9,7 +9,8 @@ import java.util.concurrent.TimeUnit;
 public class BlackJack{
 
     ImageIcon background;
-    ImageIcon icon = new ImageIcon("PNG-cards-1.3/start.png");
+    ImageIcon startIcon = new ImageIcon("Graphics/start.png");
+    ImageIcon settingsIcon = new ImageIcon("Graphics/settings.png");
     ImageIcon settingBackground = new ImageIcon(new ImageIcon("PNG-cards-1.3/BJSettingScreen.jpg").getImage().getScaledInstance(700,500,Image.SCALE_SMOOTH));
 
     ImageIcon settingBackground2 =new ImageIcon("PNG-cards-1.3/BJSettingScreen.jpg");
@@ -49,8 +50,8 @@ public class BlackJack{
     JButton hitButton  = new JButton("Hit");
     JButton standButton = new JButton("Stand");
     JButton continueButton = new JButton("Continue");
-    JButton startButton  = new JButton(icon);
-    JButton settingsButton = new JButton("Settings");
+    JButton startButton  = new JButton(startIcon);
+    JButton settingsButton = new JButton(settingsIcon);
 
     JLabel playerCard1 = new JLabel();
     JLabel playerCard2 = new JLabel();
@@ -201,7 +202,7 @@ public class BlackJack{
         JPanel newPanel = new JPanel();
         newPanel.setLayout(null);
 
-        background = new ImageIcon(new ImageIcon("PNG-cards-1.3/intro.png").getImage().getScaledInstance(700,500,Image.SCALE_SMOOTH));
+        background = new ImageIcon(new ImageIcon("Graphics/intro.png").getImage().getScaledInstance(700,500,Image.SCALE_SMOOTH));
         backgroundScreen.setIcon(background);
 
 
@@ -212,8 +213,8 @@ public class BlackJack{
 
 
 
-        startButton.setBounds(300,236,100,25);
-        settingsButton.setBounds(startButton.getX() + 50, startButton.getY() + 50, 100, 25);
+        startButton.setBounds(200,236,100,25);
+        settingsButton.setBounds(400, 236, 100, 25);
         backgroundScreen.setBounds(0,0, 700,500);
 
         startingScreenFrame.add(newPanel);
