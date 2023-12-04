@@ -388,7 +388,7 @@ public class BlackJack{
                 roundHighlights = roundHighlights + "\n" + "Possible payout: " + bankroll.getPayout();
                 textArea.setText(roundHighlights);
                 //betLabel.setText("Bankroll: " + (bankroll.getBankRollAmount() - bankroll.betValue));
-                System.out.println("Possible payout: " + bankroll.getPayout());
+                //System.out.println("Possible payout: " + bankroll.getPayout());
             }
         });
 

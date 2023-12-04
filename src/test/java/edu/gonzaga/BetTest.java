@@ -28,6 +28,16 @@ public class BetTest {
         assertEquals(2750, bet.getBankRollAmount());
 
     }
+    @Test
+    void testDiffWin() {
+        Bet bet = new Bet();
+        bet.addBet(2000);
+
+        //bet.betLoss();
+        bet.betWin();
+        //assertEquals(0, bet.getBankRollAmount());
+        assertEquals(5000, bet.getBankRollAmount());
+    }
 
     @Test
     void testBetLoss() {

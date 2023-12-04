@@ -27,6 +27,7 @@ public class Bet {
         payout = 1.5 * betValue;
 
         System.out.println("Possible payout is: " + payout);
+        betValue = 0;
     }
 
     public void setBetValue() {
