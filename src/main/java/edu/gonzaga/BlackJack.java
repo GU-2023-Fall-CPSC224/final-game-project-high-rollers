@@ -38,7 +38,7 @@ public class BlackJack{
     JFrame startingScreenFrame;
     JFrame settingScreenFrame;
     JPanel startingScreenPanel;
-    JPanel settingScreenPanel = new JPanel();
+    JPanel settingScreenPanel;
     JFrame blackJackScreenFrame;
     JPanel blackJackScreenPanel;
 
@@ -155,40 +155,33 @@ public class BlackJack{
     }
 
     void settingScreenGUI(){
-
         this.settingScreenFrame = new JFrame("Black Jack");
         this.settingScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.settingScreenFrame.setLocation(startingScreenFrame.getX(), startingScreenFrame.getY());
-
-        // Create a JLabel with the image
-        ImageIcon backgroundImage = new ImageIcon("PNG-cards-1.3/BJSettingScreen.jpg");
-        JLabel backgroundLabel = new JLabel(backgroundImage);
-
-        // Set the layout manager of the layered pane to null
-        JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setLayout(null);
-
-        // Set the bounds of the background label to cover the entire frame
-        backgroundLabel.setBounds(0, 0,500,700);
-
-        // Add the background label to the layered pane at the DEFAULT_LAYER
-        layeredPane.add(backgroundLabel, JLayeredPane.DEFAULT_LAYER);
-
-        // Set the content pane of the frame to the layered pane
-        settingScreenFrame.setContentPane(layeredPane);
-
-//        settingScreenFrame.setResizable(false);
-//        settingScreenFrame.setVisible(false);
-
-        //settingBackgroundScreen.setIcon(settingBackground2);
-        //settingBackgroundScreen.setBounds(0,0, 700,500);
-
-        settingScreenPanel.setLayout(null);
-        settingScreenPanel.add(settingBackgroundScreen);
-        settingScreenFrame.setSize(700,500);
-        settingScreenFrame.add(settingScreenPanel);
-
+        this.settingScreenFrame.setLocation(100,100);
+        this.settingScreenPanel = genSettingScreenPanel();
+        settingScreenFrame.setResizable(false);
+        new Background();
     }
+
+    private JPanel genSettingScreenPanel(){
+        JPanel newPanel = new JPanel();
+        newPanel.setLayout(null);
+
+        background = new ImageIcon(new ImageIcon("PNG-cards-1.3/table.png").getImage().getScaledInstance(700,500,Image.SCALE_SMOOTH));
+        backgroundScreen.setIcon(background);
+
+        newPanel.add(backgroundScreen);
+
+        backgroundScreen.setBounds(0,0, 700,500);
+
+        settingScreenFrame.add(newPanel);
+        settingScreenFrame.setSize(700,525);
+        settingScreenFrame.setVisible(true);
+        settingScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit out of application
+
+        return newPanel;
+    }
+
     void blackJackGUI(){
 
         this.blackJackScreenFrame = new JFrame("Black Jack");
@@ -211,9 +204,13 @@ public class BlackJack{
         background = new ImageIcon(new ImageIcon("PNG-cards-1.3/intro.png").getImage().getScaledInstance(700,500,Image.SCALE_SMOOTH));
         backgroundScreen.setIcon(background);
 
-        newPanel.add(startButton);
+
         newPanel.add(backgroundScreen);
         newPanel.add(settingsButton, JLayeredPane.POPUP_LAYER);
+        newPanel.add(startButton);
+
+
+
 
         startButton.setBounds(300,236,100,25);
         settingsButton.setBounds(startButton.getX() + 50, startButton.getY() + 50, 100, 25);
