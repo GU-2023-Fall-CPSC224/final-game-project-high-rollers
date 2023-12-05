@@ -4,11 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImagingOpException;
 import java.util.concurrent.TimeUnit;
 
 public class BlackJack {
 
     ImageIcon background;
+    ImageIcon introIcon = new ImageIcon("Graphics/intro.png");
     ImageIcon startIcon = new ImageIcon("Graphics/start.png");
     ImageIcon settingsIcon = new ImageIcon("Graphics/settings.png");
     ImageIcon settingBackground = new ImageIcon(new ImageIcon("PNG-cards-1.3/BJSettingScreen.jpg").getImage().getScaledInstance(700, 500, Image.SCALE_SMOOTH));
@@ -18,6 +20,7 @@ public class BlackJack {
 
     // starting Screen
     JLabel backgroundScreen = new JLabel();
+    JLabel introScreen = new JLabel();
     JLabel settingBackgroundScreen = new JLabel();
 
 
@@ -201,13 +204,14 @@ public class BlackJack {
         newPanel.setLayout(null);
 
         ImageIcon introBackground = new ImageIcon(new ImageIcon("Graphics/intro.png").getImage().getScaledInstance(700, 500, Image.SCALE_SMOOTH));
-        backgroundScreen.setIcon(introBackground);
+        introScreen.setIcon(introBackground);
 
         newPanel.add(settingsButton);
         newPanel.add(startButton);
-        newPanel.add(backgroundScreen);
+        newPanel.add(introScreen);
 
-        backgroundScreen.setBounds(0, 0, 700, 500);
+
+        introScreen.setBounds(0, 0, 700, 500);
         startButton.setBounds(200, 236, 110, 25);
         settingsButton.setBounds(400, 236, 110, 25);
 
