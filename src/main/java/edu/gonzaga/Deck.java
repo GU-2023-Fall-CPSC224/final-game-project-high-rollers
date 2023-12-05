@@ -73,7 +73,13 @@ public class Deck {
 
     //suffles the deck *MAKE SURE TO RESET DECK IF THE START OF A NEW ROUND*
     public void shuffleDeck() {
+      for(int i = 0; i < totalCards; i++){
+          cards.get(i).setDealerHand(false);
+          cards.get(i).setPlayerHand(false);
+          cards.get(i).setDiscard(false);
+      }
         Collections.shuffle(cards);
+       availableCards = totalCards;
     }
 
     //gives the dealer the first card in the deck that isn't used
