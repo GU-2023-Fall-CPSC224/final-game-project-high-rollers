@@ -31,8 +31,8 @@ public class BlackJack {
     Bet bankroll;
     boolean roundOver = false;
     ImageIcon turnedOverCard;
-    boolean autoDealSetting = true;
-    boolean bettingSetting = true;
+    boolean autoDealSetting = false;
+    boolean bettingSetting = false;
 
     int hitCount = 1;
     boolean firstRound = true;
@@ -96,6 +96,7 @@ public class BlackJack {
         playerCardNum2 = round.getCard();
         dealerCardNum1 = round.getDealerCard();
         dealerCardNum2 = round.getDealerCard();
+        betButton.setEnabled(true);
 
         System.out.println("value: " + dealerCardNum1.getValue());
 
@@ -176,8 +177,8 @@ public class BlackJack {
 
 
         backgroundScreen.setBounds(0, 0, 700, 500);
-        bettingToggle.setBounds(300, 50, 25, 25);
-        autoDeal.setBounds(300, 100, 25, 25);
+        bettingToggle.setBounds(300, 50, 50, 50);
+        autoDeal.setBounds(300, 100, 50, 50);
         returnButton.setBounds(200, 300, 200, 50);
 
         settingScreenFrame.add(newPanel);
@@ -350,7 +351,7 @@ public class BlackJack {
         System.out.println("dealer card score: " + round.dealerCardScore);
         System.out.println("round card score: " + round.playerCardScore);
         System.out.println("less than 21: " + (round.playerCardScore < 21));
-        while (round.dealerCardScore < round.playerCardScore && (round.playerCardScore < 21)) {
+        while (round.dealerCardScore < round.playerCardScore && (round.playerCardScore < round.BLACKJACK)) {
 
             //while it's less than we need a card so give dealer the card
             int distance = (120 + 110 * dealerHitCount);
@@ -465,13 +466,15 @@ public class BlackJack {
                     bankroll.setBetValue();
                     roundHighlights = roundHighlights + "\n" + "You have no more money to bet with";
                     textArea.setText(roundHighlights);
+                    betButton.setEnabled(true);
                     return;
                 }
                 if (bankroll.getBankRollAmount() < Integer.parseInt(betAmountTextField.getText())) {
                     System.out.println("You are betting more than you have");
-                    //bankroll.setBetValue();
+                    bankroll.setBetValue();
                     roundHighlights = roundHighlights + "\n" + "You don't have enough money";
                     textArea.setText(roundHighlights);
+                    betButton.setEnabled(true);
                     return;
                 }
                 bankroll.addBet(Integer.parseInt(betAmountTextField.getText()));
@@ -479,6 +482,7 @@ public class BlackJack {
                 textArea.setText(roundHighlights);
                 //betLabel.setText("Bankroll: " + (bankroll.getBankRollAmount() - bankroll.betValue));
                 System.out.println("Possible payout: " + bankroll.getPayout());
+                betButton.setEnabled(false);
             }
         });
 
@@ -508,7 +512,7 @@ public class BlackJack {
                 newPlayerCard.setIcon(cardImage);
                 newPlayerCard.setBounds(distance, 280, 100, 100);
                 backgroundScreen.add(newPlayerCard, JLayeredPane.PALETTE_LAYER);
-                if (round.playerCardScore >= 21) {
+                if (round.playerCardScore >= round.BLACKJACK) {
                     standButton.doClick();
                 }
                 playerScoreLabel.setText("Player Score: " + round.getPlayerScore());
@@ -530,13 +534,13 @@ public class BlackJack {
                 }
                 firstRound = false;
 
-                if (round.getPlayerScore() == 21) {
+                if (round.getPlayerScore() == round.BLACKJACK) {
                     roundHighlights = roundHighlights + "\n" + "Player BlackJack";
                     textArea.setText(roundHighlights);
                     bankroll.betWin();
                     betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
 
-                } else if (round.getPlayerScore() > 21) {
+                } else if (round.getPlayerScore() > round.BLACKJACK) {
                     roundHighlights = roundHighlights + "\n" + "Player Bust -> Dealer Wins";
                     textArea.setText(roundHighlights);
                     bankroll.betLoss();
