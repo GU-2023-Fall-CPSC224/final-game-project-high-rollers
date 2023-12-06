@@ -1,10 +1,23 @@
 package edu.gonzaga;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestFactory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BetTest {
+
+    @Test
+    void testGamingMode() {
+        // if checkbox is enabled for modifiedpayout;
+        Bet bet = new Bet();
+        bet.setPayoutGamingMode();
+        bet.addBet(500);
+
+        bet.betWin();
+        assertEquals(4000, bet.getBankRollAmount());
+
+    }
     @Test
     void testAddBet() {
         Bet bet = new Bet();
