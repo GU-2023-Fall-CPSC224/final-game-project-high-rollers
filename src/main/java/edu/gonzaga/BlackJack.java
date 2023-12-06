@@ -9,10 +9,8 @@ import java.util.ArrayList;
 public class BlackJack {
 
     ImageIcon background;
-    ImageIcon introIcon = new ImageIcon("Graphics/intro.png");
     ImageIcon startIcon = new ImageIcon("Graphics/start.png");
     ImageIcon settingsIcon = new ImageIcon("Graphics/settings.png");
-    ImageIcon settingBackground = new ImageIcon(new ImageIcon("PNG-cards-1.3/BJSettingScreen.jpg").getImage().getScaledInstance(700, 500, Image.SCALE_SMOOTH));
 
     // starting Screen
     JLabel backgroundScreen = new JLabel();
@@ -51,8 +49,8 @@ public class BlackJack {
     JButton startButton = new JButton(startIcon);
     JButton settingsButton = new JButton(settingsIcon);
 
-    JCheckBox bettingToggle = new JCheckBox("Betting enable");
-    JCheckBox autoDeal = new JCheckBox("Auto Deal");
+    JCheckBox bettingToggle = new JCheckBox();
+    JCheckBox autoDeal = new JCheckBox();
     //JCheckBox ;
     JButton returnButton = new JButton("Save and Return to Start");
 
@@ -170,11 +168,13 @@ public class BlackJack {
         newPanel.add(returnButton);
         newPanel.add(backgroundScreen);
 
+//        Dimension biggerSize = new Dimension(150, 30); // Width and height in pixels
+//        bettingToggle.setPreferredSize(biggerSize);
 
         backgroundScreen.setBounds(0, 0, 700, 500);
-        bettingToggle.setBounds(300, 50, 50, 50);
-        autoDeal.setBounds(300, 100, 50, 50);
-        returnButton.setBounds(200, 300, 200, 50);
+        bettingToggle.setBounds(460, 150, 50, 50);
+        autoDeal.setBounds(460, 375, 50, 50);
+        returnButton.setBounds(250, 450, 200, 40);
 
         settingScreenFrame.add(newPanel);
         settingScreenFrame.setSize(700, 525);
