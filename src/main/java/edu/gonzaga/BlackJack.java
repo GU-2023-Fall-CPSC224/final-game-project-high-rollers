@@ -384,14 +384,6 @@ public class BlackJack {
                 break;
             }
 
-            doWait(3);
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                // Handle interrupted exception if needed
-                e.printStackTrace();
-            }
-
             blackJackScreenPanel.revalidate();
             blackJackScreenPanel.repaint();
 
@@ -420,22 +412,6 @@ public class BlackJack {
             doAutoDeal();
         }
 
-    }
-
-    private void doWait(int seconds){
-        int delay = seconds * 1000; // Delay in milliseconds (3 seconds)
-
-        Timer timer = new Timer(delay, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                roundHighlights = roundHighlights + "\n" + "Auto Dealing...";
-                textArea.setText(roundHighlights);
-                continueButton.doClick();
-            }
-        });
-
-        timer.setRepeats(false); // Set to false if you want the timer to fire only once
-        timer.start();
     }
 
     private void doAutoDeal(){
