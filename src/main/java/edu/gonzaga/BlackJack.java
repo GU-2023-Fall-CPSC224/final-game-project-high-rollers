@@ -51,6 +51,7 @@ public class BlackJack {
 
     JCheckBox bettingToggle = new JCheckBox();
     JCheckBox autoDeal = new JCheckBox();
+    JCheckBox gamingModeToggle = new JCheckBox();
     //JCheckBox ;
     JButton returnButton = new JButton("Save and Return to Start");
 
@@ -165,6 +166,7 @@ public class BlackJack {
 
         newPanel.add(bettingToggle);
         newPanel.add(autoDeal);
+        newPanel.add(gamingModeToggle);
         newPanel.add(returnButton);
         newPanel.add(backgroundScreen);
 
@@ -174,6 +176,7 @@ public class BlackJack {
         backgroundScreen.setBounds(0, 0, 700, 500);
         bettingToggle.setBounds(460, 150, 50, 50);
         autoDeal.setBounds(460, 375, 50, 50);
+        gamingModeToggle.setBounds(460,250,50,50);
         returnButton.setBounds(250, 450, 200, 40);
 
         settingScreenFrame.add(newPanel);
@@ -578,6 +581,9 @@ public class BlackJack {
                 }
                 if(bettingToggle.isSelected()){
                     bettingSetting = true;
+                }
+                if(gamingModeToggle.isSelected()){
+                    bankroll.setPayoutGamingMode();
                 }
 
             }
