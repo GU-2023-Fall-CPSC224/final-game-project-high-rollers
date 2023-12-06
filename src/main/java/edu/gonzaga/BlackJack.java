@@ -160,7 +160,7 @@ public class BlackJack {
         JPanel newPanel = new JPanel();
         newPanel.setLayout(null);
 
-        background = new ImageIcon(new ImageIcon("Graphics/SettingsPage.png").getImage().getScaledInstance(700, 500, Image.SCALE_SMOOTH));
+        background = new ImageIcon(new ImageIcon("Graphics/SettingsScreen.png").getImage().getScaledInstance(700, 500, Image.SCALE_SMOOTH));
         backgroundScreen.setIcon(background);
 
 
