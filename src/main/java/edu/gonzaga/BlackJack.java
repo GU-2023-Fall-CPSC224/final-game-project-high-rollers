@@ -31,6 +31,8 @@ public class BlackJack {
     Bet bankroll;
     boolean roundOver = false;
     ImageIcon turnedOverCard;
+    boolean autoDealSetting = true;
+    boolean bettingSetting = true;
 
     int hitCount = 1;
     boolean firstRound = true;
@@ -166,6 +168,7 @@ public class BlackJack {
         background = new ImageIcon(new ImageIcon("Graphics/table.png").getImage().getScaledInstance(700, 500, Image.SCALE_SMOOTH));
         backgroundScreen.setIcon(background);
 
+
         newPanel.add(bettingToggle);
         newPanel.add(autoDeal);
         newPanel.add(returnButton);
@@ -173,9 +176,9 @@ public class BlackJack {
 
 
         backgroundScreen.setBounds(0, 0, 700, 500);
-        bettingToggle.setBounds(50, 50, 100, 100);
-        autoDeal.setBounds(100, 100, 100, 100);
-        returnButton.setBounds(25, 100, 100, 100);
+        bettingToggle.setBounds(300, 50, 25, 25);
+        autoDeal.setBounds(300, 100, 25, 25);
+        returnButton.setBounds(200, 300, 200, 50);
 
         settingScreenFrame.add(newPanel);
         settingScreenFrame.setSize(700, 525);
@@ -304,12 +307,19 @@ public class BlackJack {
         newPanel.add(playerScoreLabel);
         newPanel.add(dealerScoreLabel);
 
-        newPanel.add(betButton);
-        newPanel.add(betLabel);
-        newPanel.add(betAmountTextField);
+        if(bettingSetting){
+            newPanel.add(betButton);
+            newPanel.add(betLabel);
+            newPanel.add(betAmountTextField);
+        }
+
+
         newPanel.add(hitButton);
         newPanel.add(standButton);
-        newPanel.add(continueButton);
+        if(!autoDealSetting){
+            newPanel.add(continueButton);
+        }
+
         newPanel.add(scrollPane);
         newPanel.add(backgroundScreen);
         // newPanel.add(backgroundScreen, JLayeredPane.DEFAULT_LAYER);
@@ -373,6 +383,14 @@ public class BlackJack {
                 break;
             }
 
+            doWait(3);
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                // Handle interrupted exception if needed
+                e.printStackTrace();
+            }
+
             blackJackScreenPanel.revalidate();
             blackJackScreenPanel.repaint();
 
@@ -385,16 +403,55 @@ public class BlackJack {
             textArea.setText(roundHighlights);
             bankroll.betLoss();
             betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
+            doAutoDeal();
+
         } else if (round.dealerCardScore == round.playerCardScore) {
             System.out.println("Game Tie");
             roundHighlights = roundHighlights + "\n" + "Game Tie";
             textArea.setText(roundHighlights);
+            doAutoDeal();
         } else if (round.dealerCardScore == round.BLACKJACK) {
             System.out.println("Dealer BlackJack");
             roundHighlights = roundHighlights + "\n" + "Dealer BlackJack";
             textArea.setText(roundHighlights);
             bankroll.betLoss();
             betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
+            doAutoDeal();
+        }
+
+    }
+
+    private void doWait(int seconds){
+        int delay = seconds * 1000; // Delay in milliseconds (3 seconds)
+
+        Timer timer = new Timer(delay, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                roundHighlights = roundHighlights + "\n" + "Auto Dealing...";
+                textArea.setText(roundHighlights);
+                continueButton.doClick();
+            }
+        });
+
+        timer.setRepeats(false); // Set to false if you want the timer to fire only once
+        timer.start();
+    }
+
+    private void doAutoDeal(){
+        if (autoDealSetting) {
+            int delay = 3000; // Delay in milliseconds (3 seconds)
+
+            Timer timer = new Timer(delay, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    roundHighlights = roundHighlights + "\n" + "Auto Dealing...";
+                    textArea.setText(roundHighlights);
+                    continueButton.doClick();
+                }
+            });
+
+            timer.setRepeats(false); // Set to false if you want the timer to fire only once
+            timer.start();
         }
     }
 
@@ -410,7 +467,7 @@ public class BlackJack {
                     textArea.setText(roundHighlights);
                     return;
                 }
-                if (bankroll.getBankRollAmount() <= Integer.parseInt(betAmountTextField.getText())) {
+                if (bankroll.getBankRollAmount() < Integer.parseInt(betAmountTextField.getText())) {
                     System.out.println("You are betting more than you have");
                     //bankroll.setBetValue();
                     roundHighlights = roundHighlights + "\n" + "You don't have enough money";
@@ -478,6 +535,7 @@ public class BlackJack {
                     textArea.setText(roundHighlights);
                     bankroll.betWin();
                     betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
+
                 } else if (round.getPlayerScore() > 21) {
                     roundHighlights = roundHighlights + "\n" + "Player Bust -> Dealer Wins";
                     textArea.setText(roundHighlights);
@@ -487,8 +545,8 @@ public class BlackJack {
                     roundHighlights = roundHighlights + "\n" + "Player Stand";
                     textArea.setText(roundHighlights);
                 }
-
                 dealerTurn();
+
             }
         });
         continueButton.addActionListener(new ActionListener() {
@@ -517,6 +575,12 @@ public class BlackJack {
             public void actionPerformed(ActionEvent e) {
                 startingScreenFrame.setVisible(true);
                 settingScreenFrame.setVisible(false);
+                if(autoDeal.isSelected()){
+                    autoDealSetting = true;
+                }
+                if(bettingToggle.isSelected()){
+                    bettingSetting = true;
+                }
 
             }
         });
