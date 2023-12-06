@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.ImagingOpException;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class BlackJack {
@@ -351,68 +352,91 @@ public class BlackJack {
         System.out.println("dealer card score: " + round.dealerCardScore);
         System.out.println("round card score: " + round.playerCardScore);
         System.out.println("less than 21: " + (round.playerCardScore < 21));
-        while (round.dealerCardScore < round.playerCardScore && (round.playerCardScore < round.BLACKJACK)) {
+        ArrayList<JLabel> newCards = new ArrayList<>();
 
-            //while it's less than we need a card so give dealer the card
-            int distance = (120 + 110 * dealerHitCount);
-            Card dealerCard = round.dealerHand.getDealerCard(deck);
-            System.out.println(dealerCard.getCardName());
-            ImageIcon newDealerCardImage = new ImageIcon(new ImageIcon(dealerCard.getCardName()).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
-            JLabel newPlayerCard = new JLabel();
-            newPlayerCard.setIcon(newDealerCardImage);
-            newPlayerCard.setBounds(distance, 130, 100, 100);
-            backgroundScreen.add(newPlayerCard, JLayeredPane.PALETTE_LAYER);
+            while (round.dealerCardScore < round.playerCardScore && (round.playerCardScore < round.BLACKJACK)) {
 
-            dealerCard2.setIcon(card3);
-            dealerHitCount++;
-            System.out.println("Dealer Hit");
+                //while it's less than we need a card so give dealer the card
+                int distance = (120 + 110 * dealerHitCount);
+                Card dealerCard = round.dealerHand.getDealerCard(deck);
+                System.out.println(dealerCard.getCardName());
+                ImageIcon newDealerCardImage = new ImageIcon(new ImageIcon(dealerCard.getCardName()).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+                JLabel newPlayerCard = new JLabel();
+                newPlayerCard.setVisible(false);
+                newCards.add(newPlayerCard);
 
-            //calculate the score with that new card
-            round.dealerCardScore = round.dealerHand.calculateScore();
-            //if the dealer busted then their turn is over
-            System.out.println("Dealer score: " + round.dealerCardScore);
-            dealerScoreLabel.setText("Dealer Score: " + round.dealerCardScore);
+                newPlayerCard.setIcon(newDealerCardImage);
+                newPlayerCard.setBounds(distance, 130, 100, 100);
+                backgroundScreen.add(newPlayerCard, JLayeredPane.PALETTE_LAYER);
 
-            if (round.dealerCardScore > round.BLACKJACK) {
-                System.out.println("DEALER BUST");
-                roundHighlights = roundHighlights + "\n" + "Dealer Bust -> Player Wins";
-                textArea.setText(roundHighlights);
-                bankroll.betWin();
-                betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
+                dealerCard2.setIcon(card3);
+                dealerHitCount++;
+                System.out.println("Dealer Hit");
+
+                //calculate the score with that new card
+                round.dealerCardScore = round.dealerHand.calculateScore();
+                //if the dealer busted then their turn is over
+                System.out.println("Dealer score: " + round.dealerCardScore);
+                dealerScoreLabel.setText("Dealer Score: " + round.dealerCardScore);
+
+                if (round.dealerCardScore > round.BLACKJACK) {
+                    System.out.println("DEALER BUST");
+                    roundHighlights = roundHighlights + "\n" + "Dealer Bust -> Player Wins";
+                    textArea.setText(roundHighlights);
+                    bankroll.betWin();
+                    betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
+                    blackJackScreenPanel.revalidate();
+                    blackJackScreenPanel.repaint();
+                    break;
+                }
+            }
+                Timer timer = new Timer(1000, new ActionListener() {
+                    private int index = 0;
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (index < newCards.size()) {
+                            // Print the element at the current index
+                            System.out.println(newCards.get(index).getText());
+                            newCards.get(index).setVisible(true);
+                            index++;
+                        } else {
+                            // Stop the timer when all elements are printed
+                            ((Timer) e.getSource()).stop();
+                        }
+                    }
+                });
+
+                timer.start();
+
                 blackJackScreenPanel.revalidate();
                 blackJackScreenPanel.repaint();
-                break;
+
+
+            roundOver = true;
+            if (round.dealerCardScore < round.BLACKJACK && round.dealerCardScore > round.playerCardScore) {
+                System.out.println("DEALER WINS");
+                roundHighlights = roundHighlights + "\n" + "Dealer WINS";
+                textArea.setText(roundHighlights);
+                bankroll.betLoss();
+                betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
+                doAutoDeal();
+
+            } else if (round.dealerCardScore == round.playerCardScore) {
+                System.out.println("Game Tie");
+                roundHighlights = roundHighlights + "\n" + "Game Tie";
+                textArea.setText(roundHighlights);
+                doAutoDeal();
+            } else if (round.dealerCardScore == round.BLACKJACK) {
+                System.out.println("Dealer BlackJack");
+                roundHighlights = roundHighlights + "\n" + "Dealer BlackJack";
+                textArea.setText(roundHighlights);
+                bankroll.betLoss();
+                betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
+                doAutoDeal();
             }
 
-            blackJackScreenPanel.revalidate();
-            blackJackScreenPanel.repaint();
-
         }
-
-        roundOver = true;
-        if (round.dealerCardScore < round.BLACKJACK && round.dealerCardScore > round.playerCardScore) {
-            System.out.println("DEALER WINS");
-            roundHighlights = roundHighlights + "\n" + "Dealer WINS";
-            textArea.setText(roundHighlights);
-            bankroll.betLoss();
-            betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
-            doAutoDeal();
-
-        } else if (round.dealerCardScore == round.playerCardScore) {
-            System.out.println("Game Tie");
-            roundHighlights = roundHighlights + "\n" + "Game Tie";
-            textArea.setText(roundHighlights);
-            doAutoDeal();
-        } else if (round.dealerCardScore == round.BLACKJACK) {
-            System.out.println("Dealer BlackJack");
-            roundHighlights = roundHighlights + "\n" + "Dealer BlackJack";
-            textArea.setText(roundHighlights);
-            bankroll.betLoss();
-            betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
-            doAutoDeal();
-        }
-
-    }
 
     private void doAutoDeal(){
         if (autoDealSetting) {
