@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class BlackJack {
 
@@ -170,6 +169,8 @@ public class BlackJack {
         newPanel.add(playerNameTextField);
         newPanel.add(autoDeal);
         newPanel.add(gamingModeToggle);
+        gamingModeToggle.setEnabled(false);
+
         newPanel.add(returnButton);
         newPanel.add(backgroundScreen);
 
@@ -609,23 +610,19 @@ public class BlackJack {
             public void actionPerformed(ActionEvent e) {
                 if(bettingToggle.isSelected()){
                     autoDeal.setEnabled(false);
+                    autoDeal.setSelected(false);
+                    gamingModeToggle.setEnabled(true);
                 }
                 else{
                     autoDeal.setEnabled(true);
+                    gamingModeToggle.setEnabled(false);
+                    gamingModeToggle.setSelected(false);
                 }
 
 
             }
         });
-        bettingToggle.addActionListener(new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(autoDeal.isSelected()){
-                    autoDeal.setSelected(false);
-                }
-            }
-        });
 
     }
 }
