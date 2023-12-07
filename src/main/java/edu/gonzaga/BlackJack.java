@@ -15,6 +15,7 @@ public class BlackJack {
     // starting Screen
     JLabel backgroundScreen = new JLabel();
     JLabel introScreen = new JLabel();
+    JLabel quitScreen = new JLabel();
 
     Round round;
     Deck deck;
@@ -38,6 +39,7 @@ public class BlackJack {
     JPanel startingScreenPanel;
     JPanel settingScreenPanel;
     JFrame blackJackScreenFrame;
+    JFrame endScreenFrame;
     JPanel blackJackScreenPanel;
 
 
@@ -50,6 +52,7 @@ public class BlackJack {
     JButton continueButton = new JButton("Continue");
     JButton startButton = new JButton(startIcon);
     JButton settingsButton = new JButton(settingsIcon);
+    JButton quitButton = new JButton("Quit");
 
     JCheckBox bettingToggle = new JCheckBox();
     JCheckBox autoDeal = new JCheckBox();
@@ -228,6 +231,20 @@ public class BlackJack {
 
         return newPanel;
     }
+    private JPanel genEndScreen() {
+        JPanel endPanel = new JPanel();
+        endPanel.setLayout(null);
+
+        ImageIcon endScreenBackground = new ImageIcon(new ImageIcon("Graphics/table.png").getImage().getScaledInstance(700, 500, Image.SCALE_SMOOTH));
+        quitScreen.setIcon(endScreenBackground);
+
+        quitScreen.add(endPanel);
+        quitScreen.setSize(700, 525);
+        quitScreen.setVisible(true);
+        blackJackScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit out of application
+
+        return endPanel;
+    }
 
     private JPanel genBlackJackGUI() {
         JPanel newPanel = new JPanel();
@@ -270,6 +287,7 @@ public class BlackJack {
         betButton.setBounds(100, 0, 76, 25);
         playerWinsLabel.setBounds(5, 0, 300, 25);
         dealerWinsLabel.setBounds(5, 25, 300, 25);
+        quitButton.setBounds(0,0,100,25);
 
         betLabel.setBounds(0, 0, 95, 25);
         betLabel.setForeground(new Color(227, 217, 217));
@@ -315,6 +333,7 @@ public class BlackJack {
         newPanel.add(dealerText);
         newPanel.add(playerScoreLabel);
         newPanel.add(dealerScoreLabel);
+        newPanel.add(quitButton);
 
         if(bettingSetting){
             newPanel.add(betButton);
@@ -624,6 +643,16 @@ public class BlackJack {
                 if(autoDeal.isSelected()){
                     autoDeal.setSelected(false);
                 }
+            }
+        });
+        quitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                blackJackScreenPanel.removeAll();
+                backgroundScreen.removeAll();
+                blackJackScreenPanel.revalidate();
+                blackJackScreenPanel.repaint();
+                blackJackScreenPanel = genEndScreen();
             }
         });
 
