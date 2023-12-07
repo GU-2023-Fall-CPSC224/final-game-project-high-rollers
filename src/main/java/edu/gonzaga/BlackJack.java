@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class BlackJack {
 
@@ -111,7 +110,7 @@ public class BlackJack {
             this.blackJackScreenPanel = genBlackJackGUI();
 
             //checks to see if we need to shuffle
-            if(deck.availableCards < 10){
+            if (deck.availableCards < 10) {
                 deck.shuffleDeck();
                 System.out.println("Shuffling...");
             }
@@ -183,7 +182,7 @@ public class BlackJack {
         bettingToggle.setBounds(460, 150, 50, 50);
         autoDeal.setBounds(460, 375, 50, 50);
         playerNameTextField.setBounds(285, 87, 200, 30);
-        gamingModeToggle.setBounds(460,250,50,50);
+        gamingModeToggle.setBounds(460, 250, 50, 50);
         returnButton.setBounds(250, 450, 200, 40);
 
         settingScreenFrame.add(newPanel);
@@ -231,6 +230,7 @@ public class BlackJack {
 
         return newPanel;
     }
+
     private JPanel genEndScreen() {
         JPanel endPanel = new JPanel();
         endPanel.setLayout(null);
@@ -287,7 +287,7 @@ public class BlackJack {
         betButton.setBounds(100, 0, 76, 25);
         playerWinsLabel.setBounds(5, 0, 300, 25);
         dealerWinsLabel.setBounds(5, 25, 300, 25);
-        quitButton.setBounds(0,0,100,25);
+        quitButton.setBounds(0, 0, 100, 25);
 
         betLabel.setBounds(0, 0, 95, 25);
         betLabel.setForeground(new Color(227, 217, 217));
@@ -335,11 +335,11 @@ public class BlackJack {
         newPanel.add(dealerScoreLabel);
         newPanel.add(quitButton);
 
-        if(bettingSetting){
+        if (bettingSetting) {
             newPanel.add(betButton);
             newPanel.add(betLabel);
             newPanel.add(betAmountTextField);
-        }else{
+        } else {
             newPanel.add(playerWinsLabel);
             newPanel.add(dealerWinsLabel);
         }
@@ -347,7 +347,7 @@ public class BlackJack {
 
         newPanel.add(hitButton);
         newPanel.add(standButton);
-        if(!autoDealSetting){
+        if (!autoDealSetting) {
             newPanel.add(continueButton);
         }
 
@@ -452,7 +452,7 @@ public class BlackJack {
 
     }
 
-    private void doAutoDeal(){
+    private void doAutoDeal() {
         if (autoDealSetting) {
             int delay = 3000; // Delay in milliseconds (3 seconds)
 
@@ -514,7 +514,7 @@ public class BlackJack {
                 if (roundOver) {
                     return;
                 }
-                roundHighlights = roundHighlights + "\n" + playerName +" Hit";
+                roundHighlights = roundHighlights + "\n" + playerName + " Hit";
                 textArea.setText(roundHighlights);
 
                 int distance = (120 + 110 * hitCount);
@@ -601,22 +601,22 @@ public class BlackJack {
                 startingScreenFrame.setVisible(true);
                 settingScreenFrame.setVisible(false);
                 playerName = playerNameTextField.getText().trim();
-                if(playerName.isEmpty()){
+                if (playerName.isEmpty()) {
                     playerName = "Player";
                 }
 
                 System.out.println("Player name: " + playerName);
                 playerText.setText(playerName + "'s Cards");
-                playerScoreLabel.setText(playerName + "'s Score: " + round.getPlayerScore() );
+                playerScoreLabel.setText(playerName + "'s Score: " + round.getPlayerScore());
                 playerWinsLabel.setText(playerName + "'s Wins: 0");
 
-                if(autoDeal.isSelected()){
+                if (autoDeal.isSelected()) {
                     autoDealSetting = true;
                 }
-                if(bettingToggle.isSelected()){
+                if (bettingToggle.isSelected()) {
                     bettingSetting = true;
                 }
-                if(gamingModeToggle.isSelected()){
+                if (gamingModeToggle.isSelected()) {
                     bankroll.setPayoutGamingMode();
                 }
 
@@ -626,10 +626,9 @@ public class BlackJack {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(bettingToggle.isSelected()){
+                if (bettingToggle.isSelected()) {
                     autoDeal.setEnabled(false);
-                }
-                else{
+                } else {
                     autoDeal.setEnabled(true);
                 }
 
@@ -640,7 +639,7 @@ public class BlackJack {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(autoDeal.isSelected()){
+                if (autoDeal.isSelected()) {
                     autoDeal.setSelected(false);
                 }
             }
