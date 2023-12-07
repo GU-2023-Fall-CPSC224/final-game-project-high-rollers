@@ -7,6 +7,7 @@ public class Bet {
     private int bankRoll;
     double betValue = 0;
     double payout = 0;
+    double payoutRateNormal = 1.5;
     public Bet(){
         // default value of the players Bankroll at the start of the game.
         bankRoll = 2000;
@@ -24,9 +25,12 @@ public class Bet {
         // used to assign the state the betValue with the parameter
         this.betValue = betValue;
 
-        payout = 1.5 * betValue;
+        System.out.println(payoutRateNormal);
+        payout = payoutRateNormal * betValue;
+        System.out.println(payout);
 
         System.out.println("Possible payout is: " + payout);
+        betValue = 0;
     }
 
     public void setBetValue() {
@@ -44,6 +48,10 @@ public class Bet {
         return payout;
     }
 
+    public void setPayoutGamingMode(){
+        payoutRateNormal = 4;
+    }
+
     /**
      * If the round results in a tie, then the bankRoll is reset to the amount at the start of the round before the bet
      */
@@ -56,7 +64,7 @@ public class Bet {
      * If the player wins the round, they win the bet and their bankRoll gets the value of the bet which was stored in the betValue field.
      */
     public void betWin(){
-        bankRoll += (int) (1.5 * betValue);
+        bankRoll += (int) (payoutRateNormal * betValue);
     }
 
     /**
