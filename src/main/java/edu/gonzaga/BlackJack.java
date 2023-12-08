@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class BlackJack {
 
@@ -24,8 +25,8 @@ public class BlackJack {
     boolean bettingSetting = false;
 
     int hitCount = 1;
-    int playerWinsTotal = 0;
-    int dealerWinsTotal = 0;
+    int playerWinsTotal = 8;
+    int dealerWinsTotal = 8;
     boolean firstRound = true;
     String playerName = "Player";
     Card playerCardNum1;
@@ -40,6 +41,8 @@ public class BlackJack {
     JFrame blackJackScreenFrame;
     JFrame endScreenFrame;
     JPanel blackJackScreenPanel;
+    JPanel endPanel = new JPanel();
+
 
 
     JButton betButton = new JButton("Bet");
@@ -159,6 +162,15 @@ public class BlackJack {
         settingScreenFrame.setResizable(false);
         new Background();
     }
+    void endingScreenPanel(){
+        this.endScreenFrame = new JFrame("Black Jack");
+        this.endScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.endScreenFrame.setLocation(100, 100);
+        this.endPanel = genEndScreen();
+        settingScreenFrame.setResizable(false);
+        new Background();
+    }
+
 
     private JPanel genSettingScreenPanel() {
         JPanel newPanel = new JPanel();
@@ -230,20 +242,27 @@ public class BlackJack {
 
         return newPanel;
     }
-
     private JPanel genEndScreen() {
-        JPanel endPanel = new JPanel();
-        endPanel.setLayout(null);
 
-        ImageIcon endScreenBackground = new ImageIcon(new ImageIcon("Graphics/table.png").getImage().getScaledInstance(700, 500, Image.SCALE_SMOOTH));
-        quitScreen.setIcon(endScreenBackground);
+        JPanel newPanel = new JPanel();
+        newPanel.setLayout(null);
 
-        quitScreen.add(endPanel);
-        quitScreen.setSize(700, 525);
-        quitScreen.setVisible(true);
-        blackJackScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit out of application
+        ImageIcon endScreenImage = new ImageIcon(new ImageIcon("Graphics/table.png").getImage().getScaledInstance(700, 500, Image.SCALE_SMOOTH));
+        backgroundScreen.removeAll();
+        backgroundScreen.setIcon(endScreenImage);
 
-        return endPanel;
+
+        // add new buttons
+
+        newPanel.add(backgroundScreen);
+        // set bounds of buttons
+
+        endScreenFrame.add(newPanel);
+        endScreenFrame.setSize(700, 525);
+        endScreenFrame.setVisible(false);
+        settingScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit out of application
+
+        return newPanel;
     }
 
     private JPanel genBlackJackGUI() {
@@ -287,7 +306,7 @@ public class BlackJack {
         betButton.setBounds(100, 0, 76, 25);
         playerWinsLabel.setBounds(5, 0, 300, 25);
         dealerWinsLabel.setBounds(5, 25, 300, 25);
-        quitButton.setBounds(0, 0, 100, 25);
+        quitButton.setBounds(550,450,100,25);
 
         betLabel.setBounds(0, 0, 95, 25);
         betLabel.setForeground(new Color(227, 217, 217));
@@ -365,7 +384,6 @@ public class BlackJack {
         return newPanel;
     }
 
-
     public void dealerTurn() {
         int dealerHitCount = 1;
         ImageIcon card3 = new ImageIcon(new ImageIcon(dealerCardNum2.getCardName()).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
@@ -413,6 +431,10 @@ public class BlackJack {
                 betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
                 playerWinsTotal++;
                 playerWinsLabel.setText(playerName + "'s Wins: " + playerWinsTotal);
+                if(playerWinsTotal == 10){
+                    quitButton.doClick();
+                }
+
                 blackJackScreenPanel.revalidate();
                 blackJackScreenPanel.repaint();
                 break;
@@ -428,7 +450,6 @@ public class BlackJack {
             roundHighlights = roundHighlights + "\n" + "Dealer WINS";
             dealerWinsTotal++;
             dealerWinsLabel.setText("Dealer Wins: " + dealerWinsTotal);
-
             textArea.setText(roundHighlights);
             bankroll.betLoss();
             betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
@@ -448,6 +469,9 @@ public class BlackJack {
             bankroll.betLoss();
             betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
             doAutoDeal();
+        }
+        if(dealerWinsTotal == 10){
+            quitButton.doClick();
         }
 
     }
@@ -551,6 +575,9 @@ public class BlackJack {
                     roundHighlights = roundHighlights + "\n" + playerName + " BlackJack";
                     playerWinsTotal++;
                     playerWinsLabel.setText(playerName + " Wins: " + playerWinsTotal);
+                    if(playerWinsTotal == 10){
+                        quitButton.doClick();
+                    }
 
                     textArea.setText(roundHighlights);
                     bankroll.betWin();
@@ -647,11 +674,11 @@ public class BlackJack {
         quitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                blackJackScreenPanel.removeAll();
-                backgroundScreen.removeAll();
-                blackJackScreenPanel.revalidate();
-                blackJackScreenPanel.repaint();
-                blackJackScreenPanel = genEndScreen();
+
+                endingScreenPanel();
+                blackJackScreenFrame.setVisible(false);
+                endScreenFrame.setVisible(true);
+
             }
         });
 
