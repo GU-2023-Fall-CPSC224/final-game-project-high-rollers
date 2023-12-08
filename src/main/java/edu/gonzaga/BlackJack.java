@@ -558,6 +558,9 @@ public class BlackJack {
                 dealerCard2.setVisible(true);
                 playerScoreLabel.setVisible(true);
                 dealerScoreLabel.setVisible(true);
+                standButton.setEnabled(true);
+                continueButton.setEnabled(true);
+                hitButton.setEnabled(true);
                 betButton.setEnabled(false);
             }
         });
