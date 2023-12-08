@@ -66,10 +66,6 @@ public class BlackJack {
     JLabel dealerCard1 = new JLabel();
     JLabel dealerCard2 = new JLabel();
 
-    JLabel finalBetAmount = new JLabel("N/A");
-    JLabel playerWinsFinal = new JLabel("N/A");
-    JLabel dealerWinsFinal = new JLabel("N/A");
-
     JLabel playerText = new JLabel("Player's Cards");
     JLabel dealerText = new JLabel("Dealer's Cards");
     JLabel playerScoreLabel = new JLabel("Player's Score: 0"); // Initializing with default score
@@ -165,7 +161,6 @@ public class BlackJack {
         settingScreenFrame.setResizable(false);
         new Background();
     }
-
     void endingScreenPanel(){
         this.endScreenFrame = new JFrame("Black Jack");
         this.endScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -175,6 +170,7 @@ public class BlackJack {
         new Background();
 
     }
+
 
     private JPanel genSettingScreenPanel() {
         JPanel newPanel = new JPanel();
@@ -248,7 +244,6 @@ public class BlackJack {
 
         return newPanel;
     }
-
     private JPanel genEndScreen() {
 
         JPanel newPanel = new JPanel();
@@ -262,23 +257,6 @@ public class BlackJack {
         // add new buttons
 
         newPanel.add(backgroundScreen);
-        backgroundScreen.add(dealerWinsFinal);
-        backgroundScreen.add(playerWinsFinal);
-        backgroundScreen.add(finalBetAmount);
-
-        dealerWinsFinal.setFont(new Font("MV Boli", Font.ITALIC, 20)); // set font of text
-        dealerWinsFinal.setForeground(new Color(227, 217, 217));
-
-        playerWinsFinal.setFont(new Font("MV Boli", Font.ITALIC, 20)); // set font of text
-        playerWinsFinal.setForeground(new Color(227, 217, 217));
-
-        finalBetAmount.setFont(new Font("MV Boli", Font.ITALIC, 20)); // set font of text
-        finalBetAmount.setForeground(new Color(227, 217, 217));
-
-        dealerWinsFinal.setBounds(50, 130, 100, 100);
-        playerWinsFinal.setBounds(50, 200, 100, 100);
-        finalBetAmount.setBounds(50, 400, 100, 100);
-
         // set bounds of buttons
 
         endScreenFrame.add(newPanel);
