@@ -366,6 +366,15 @@ public class BlackJack {
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setBounds(playerText.getX() - 50, playerText.getY() + 100, 200, 50);
 
+        if(bettingSetting){
+            playerCard1.setVisible(false);
+            playerCard2.setVisible(false);
+            dealerCard1.setVisible(false);
+            dealerCard2.setVisible(false);
+            playerScoreLabel.setVisible(false);
+            dealerScoreLabel.setVisible(false);
+        }
+
         newPanel.add(playerCard1);
         newPanel.add(playerCard2);
         newPanel.add(dealerCard1);
@@ -543,6 +552,12 @@ public class BlackJack {
                 textArea.setText(roundHighlights);
                 //betLabel.setText("Bankroll: " + (bankroll.getBankRollAmount() - bankroll.betValue));
                 System.out.println("Possible payout: " + bankroll.getPayout());
+                playerCard1.setVisible(true);
+                playerCard2.setVisible(true);
+                dealerCard1.setVisible(true);
+                dealerCard2.setVisible(true);
+                playerScoreLabel.setVisible(true);
+                dealerScoreLabel.setVisible(true);
                 betButton.setEnabled(false);
             }
         });
