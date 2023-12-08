@@ -168,6 +168,7 @@ public class BlackJack {
         this.endPanel = genEndScreen();
         settingScreenFrame.setResizable(false);
         new Background();
+
     }
 
 
@@ -248,7 +249,7 @@ public class BlackJack {
         JPanel newPanel = new JPanel();
         newPanel.setLayout(null);
 
-        ImageIcon endScreenImage = new ImageIcon(new ImageIcon("Graphics/table.png").getImage().getScaledInstance(700, 500, Image.SCALE_SMOOTH));
+        ImageIcon endScreenImage = new ImageIcon(new ImageIcon("Graphics/settingsBackground.png").getImage().getScaledInstance(700, 500, Image.SCALE_SMOOTH));
         backgroundScreen.removeAll();
         backgroundScreen.setIcon(endScreenImage);
 
@@ -680,6 +681,5 @@ public class BlackJack {
 
             }
         });
-
     }
 }
