@@ -670,16 +670,6 @@ public class BlackJack {
 
             }
         });
-
-
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (autoDeal.isSelected()) {
-                    autoDeal.setSelected(false);
-                }
-            }
-        });
         quitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
