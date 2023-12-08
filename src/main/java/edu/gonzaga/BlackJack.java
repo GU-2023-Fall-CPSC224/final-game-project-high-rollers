@@ -492,6 +492,9 @@ public class BlackJack {
             textArea.setText(roundHighlights);
             bankroll.betLoss();
             betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
+            if(bankroll.getBankRollAmount() == 0){
+                quitButton.doClick();
+            }
             doAutoDeal();
 
         } else if (round.dealerCardScore == round.playerCardScore) {
@@ -509,6 +512,9 @@ public class BlackJack {
             textArea.setText(roundHighlights);
             bankroll.betLoss();
             betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
+            if(bankroll.getBankRollAmount() == 0){
+                quitButton.doClick();
+            }
             doAutoDeal();
         }
         if(dealerWinsTotal == 10){
@@ -645,6 +651,9 @@ public class BlackJack {
 
                     textArea.setText(roundHighlights);
                     bankroll.betLoss();
+                    if(bankroll.getBankRollAmount() == 0){
+                        quitButton.doClick();
+                    }
                     betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
                     doAutoDeal();
                 } else {
