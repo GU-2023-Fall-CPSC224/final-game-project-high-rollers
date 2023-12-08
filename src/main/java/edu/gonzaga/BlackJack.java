@@ -71,8 +71,8 @@ public class BlackJack {
     JLabel dealerText = new JLabel("Dealer's Cards");
     JLabel playerScoreLabel = new JLabel("Player's Score: 0"); // Initializing with default score
     JLabel dealerScoreLabel = new JLabel("Dealer's Score: 0"); // Initializing with default score
-    JLabel playerWinsLabel = new JLabel("Player's Wins: 0"); // Initializing with default score
-    JLabel dealerWinsLabel = new JLabel("Dealer's Wins: 0"); // Initializing with default score
+    JLabel playerWinsLabel = new JLabel("Player's Wins: " + playerWinsTotal); // Initializing with default score
+    JLabel dealerWinsLabel = new JLabel("Dealer's Wins: " + dealerWinsTotal); // Initializing with default score
 
     JLabel dealerWinsFinal = new JLabel("N/A");
     JLabel playerWinsFinal = new JLabel("N/A");
@@ -326,15 +326,15 @@ public class BlackJack {
         hitButton.setBounds(250, 0, 100, 25);
         standButton.setBounds(350, 0, 100, 25);
         continueButton.setBounds(450, 0, 100, 25);
-        betButton.setBounds(100, 0, 76, 25);
+        betButton.setBounds(115, 0, 76, 25);
         playerWinsLabel.setBounds(5, 0, 300, 25);
         dealerWinsLabel.setBounds(5, 25, 300, 25);
         quitButton.setBounds(550,450,100,25);
 
-        betLabel.setBounds(0, 0, 95, 25);
+        betLabel.setBounds(0, 0, 130, 25);
         betLabel.setForeground(new Color(227, 217, 217));
         this.betLabel.setText("Bankroll: " + bankroll.getBankRollAmount());
-        betAmountTextField.setBounds(180, 0, 50, 25);
+        betAmountTextField.setBounds(200, 0, 50, 25);
         this.betAmountTextField.setText("0");
 
         playerText.setBounds(60, 340, 300, 100);
@@ -658,7 +658,7 @@ public class BlackJack {
                 System.out.println("Player name: " + playerName);
                 playerText.setText(playerName + "'s Cards");
                 playerScoreLabel.setText(playerName + "'s Score: " + round.getPlayerScore());
-                playerWinsLabel.setText(playerName + "'s Wins: 0");
+                playerWinsLabel.setText(playerName + "'s Wins: " + playerWinsTotal);
 
                 if (autoDeal.isSelected()) {
                     autoDealSetting = true;
@@ -698,6 +698,9 @@ public class BlackJack {
 
                 if(bettingSetting){
                     finalBetAmount.setText(Integer.toString(bankroll.getBankRollAmount()));
+                    dealerWinsTotal = 0;
+                    playerWinsTotal = 0;
+
                 }else{
                     dealerWinsFinal.setText(Integer.toString(dealerWinsTotal));
                     playerWinsFinal.setText(Integer.toString(playerWinsTotal));
@@ -718,7 +721,10 @@ public class BlackJack {
                 backgroundScreen.remove(playerWinsFinal);
                 backgroundScreen.remove(finalBetAmount);
                 backgroundScreen.remove(returnToStartButton);
-                startingScreenFrame.setVisible(true);
+                EventQueue.invokeLater(() -> {
+                    BlackJack app = new BlackJack();
+                    app.runGUI();
+                });
             }
         });
     }
